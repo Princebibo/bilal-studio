@@ -1033,13 +1033,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (Array.isArray(data.errors) && data.errors.length) {
       const fields = {};
-      let general = '';
+      let sawGeneral = false;
+
       data.errors.forEach(function (e) {
-        if (e.field) fields[e.field] = e.message;
-        else general = e.message;
+        /* Provider messages are English-only ("Bad form post request",
+           "Email is invalid"). Substitute our localised equivalent — the
+           default language is French, and dropping English into the page
+           mid-sentence is worse than a slightly less specific message.
+           The provider's exact wording still goes to the console. */
+        if (e.field) {
+          fields[e.field] = (e.field === 'email') ? t('msg.email') : t('msg.required');
+          console.error('[form] Formspree field "' + e.field + '": ' + e.message);
+        } else {
+          sawGeneral = true;
+          console.error('[form] Formspree: ' + e.message);
+        }
       });
-      if (general) console.error('[form] Formspree:', general);
-      return { ok: false, fields: Object.keys(fields).length ? fields : null, error: general };
+
+      const hasFields = Object.keys(fields).length > 0;
+      return {
+        ok: false,
+        fields: hasFields ? fields : null,
+        /* "check the highlighted fields" only makes sense if something is
+           actually highlighted; otherwise fall back to the generic line. */
+        error: hasFields ? t('msg.fields') : t('msg.generic'),
+        _general: sawGeneral,
+      };
     }
 
     /* Log the provider's real wording for whoever is debugging, but show
