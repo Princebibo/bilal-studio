@@ -1023,7 +1023,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (res.ok) return { ok: true };
 
-    /* Formspree returns { errors: [{ field, message }] } */
+    /* Formspree has TWO error shapes and both must be handled:
+         validation → { errors: [{ field, message }] }
+         config     → { error: "single message string" }
+       Missing the second one hides the real cause behind a generic
+       message — e.g. a 403 "reCAPTCHA must be disabled to submit via
+       AJAX" would surface as "something went wrong", sending you to
+       debug your network instead of your Formspree settings. */
+
     if (Array.isArray(data.errors) && data.errors.length) {
       const fields = {};
       let general = '';
@@ -1031,8 +1038,19 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.field) fields[e.field] = e.message;
         else general = e.message;
       });
+      if (general) console.error('[form] Formspree:', general);
       return { ok: false, fields: Object.keys(fields).length ? fields : null, error: general };
     }
+
+    /* Log the provider's real wording for whoever is debugging, but show
+       the visitor a localised message — they cannot act on "set a custom
+       reCAPTCHA key", and it would appear in English mid-French page. */
+    if (data.error) {
+      console.error('[form] Formspree ' + res.status + ': ' + data.error);
+    } else {
+      console.error('[form] Formspree returned ' + res.status + ' with no error body');
+    }
+
     return { ok: false, error: t('msg.generic') };
   }
 
