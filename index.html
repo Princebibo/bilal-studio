@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bilal Studio — Cartes NFC d'avis Google & sites sur mesure</title>
+<meta name="description" id="metaDesc" content="Développez votre entreprise plus vite avec une carte NFC d'avis Google et un site performant. Un geste, plus d'avis, plus de clients. Cartes 30–45 $, achat unique.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..600,0,1;1,9..144,400..600,0,1&family=Inter:wght@400;500&display=swap&subset=latin" rel="stylesheet">
+
+<style>
+/* ─────────────────────────────  TOKENS  ───────────────────────────── */
+:root{
+  --ink:#14110F;
+  --ink-soft:#4A4441;
+  --ink-faint:#6E6864;   /* 5.18:1 on paper, 4.75:1 on paper-alt */
+  --paper:#FAF8F5;
+  --paper-alt:#F2EEE8;
+  --rule:#E2DCD3;
+  --accent:#B4522B;      /* 4.74:1 on paper */
+
+  --display:"Fraunces",Georgia,serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  --fs-display:clamp(2.5rem,6.6vw,5.75rem);
+  --fs-h2:clamp(2rem,4.5vw,3.5rem);
+  --fs-h3:clamp(1.25rem,2vw,1.625rem);
+  --fs-lead:clamp(1.0625rem,1.5vw,1.3125rem);
+  --fs-label:.75rem;
+
+  --gutter:clamp(1.25rem,5vw,5rem);
+  --section-y:clamp(6rem,14vh,11rem);
+  --max:1240px;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+/* ─────────────────────────────  RESET  ───────────────────────────── */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font:400 1.0625rem/1.65 var(--sans);letter-spacing:-.011em;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+h1,h2,h3,h4,p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--ink);color:var(--paper);
+  padding:.75rem 1.25rem;font-size:var(--fs-label);letter-spacing:.12em;text-transform:uppercase}
+.skip:focus{left:0}
+
+/* ─────────────────────────────  LAYOUT  ───────────────────────────── */
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:0 clamp(1rem,2.5vw,2rem)}
+section{padding-block:var(--section-y);position:relative}
+.band{background:var(--paper-alt)}
+.hr{height:1px;background:var(--rule);border:0;margin:0}
+
+/* ─────────────────────────────  TYPE  ───────────────────────────── */
+.label{font-size:var(--fs-label);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-faint);font-weight:500}
+.eyebrow{display:flex;align-items:center;gap:1rem;margin-bottom:clamp(2rem,4vw,3.25rem)}
+.eyebrow .rule{flex:1;height:1px;background:var(--rule);transform-origin:left center}
+
+h1,h2,h3{font-family:var(--display);font-weight:500;font-variation-settings:"SOFT" 0,"WONK" 1}
+h1{font-size:var(--fs-display);line-height:.96;letter-spacing:-.032em;text-wrap:balance;margin-left:-.03em}
+h2{font-size:var(--fs-h2);line-height:1.04;letter-spacing:-.028em;text-wrap:balance}
+h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
+.lead{font-size:var(--fs-lead);color:var(--ink-soft);line-height:1.6;text-wrap:pretty}
+.em{color:var(--accent);font-style:italic}
+
+.line{display:block;overflow:hidden;padding-bottom:.04em}
+.line>span{display:block}
+
+/* ─────────────────────────────  BUTTONS  ───────────────────────────── */
+.btn{--fill:var(--ink);
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  min-height:54px;padding:0 1.875rem;border-radius:3px;
+  font-size:.9375rem;font-weight:500;overflow:hidden;isolation:isolate;
+  transition:color .35s var(--ease)}
+.btn>span{position:relative;z-index:2;transition:transform .35s var(--ease)}
+.btn::after{content:"";position:absolute;inset:0;z-index:1;background:var(--fill);
+  transform:translateY(100%);transition:transform .35s var(--ease)}
+.btn:hover>span,.btn:focus-visible>span{transform:translateY(-1px)}
+.btn:hover::after,.btn:focus-visible::after{transform:translateY(0)}
+.btn--solid{background:var(--accent);color:var(--paper)}
+.btn--ghost{border:1px solid var(--rule);color:var(--ink)}
+.btn--ghost:hover,.btn--ghost:focus-visible{color:var(--paper);border-color:var(--ink)}
+
+.tlink{display:inline-block;position:relative;font-weight:500;padding-bottom:2px}
+.tlink::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;
+  background:currentColor;transform:scaleX(0);transform-origin:left;
+  transition:transform .3s var(--ease)}
+.tlink:hover::after,.tlink:focus-visible::after{transform:scaleX(1)}
+
+/* ─────────────────────────────  NAV  ───────────────────────────── */
+.nav{position:fixed;inset:0 0 auto;z-index:100;border-bottom:1px solid transparent;
+  transition:background .4s var(--ease),backdrop-filter .4s var(--ease),border-color .4s var(--ease)}
+.nav.is-stuck{background:rgba(250,248,245,.82);-webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);border-bottom-color:var(--rule)}
+.nav__inner{display:flex;align-items:center;justify-content:space-between;gap:1.25rem;min-height:76px}
+.mark{font-family:var(--display);font-size:1.1875rem;letter-spacing:-.03em;font-weight:600}
+.nav__right{display:flex;align-items:center;gap:clamp(1rem,2.5vw,2rem)}
+.nav__links{display:flex;align-items:center;gap:clamp(1.25rem,3vw,2.5rem)}
+.nav__links a{font-size:.9375rem;color:var(--ink-soft);transition:color .25s}
+.nav__links a:hover{color:var(--ink)}
+.nav__cta{min-height:44px;padding:0 1.125rem;font-size:.875rem}
+
+/* ── Language switch (top right) ─────────────────────────────────────
+   Deliberately NOT accent-coloured: the accent budget is spent on the
+   two conversion moments. Active state reads via weight + ink colour. */
+.lang{display:flex;align-items:center;border:1px solid var(--rule);border-radius:3px;
+  overflow:hidden;background:var(--paper)}
+.lang button{min-width:44px;min-height:44px;padding:0 .5rem;   /* 44x44 touch target */
+  font:500 .75rem/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);transition:color .25s,background .25s}
+.lang button+button{border-left:1px solid var(--rule)}
+.lang button:hover{color:var(--ink)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+
+.burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;margin-right:-10px}
+.burger span{display:block;width:22px;height:1px;background:var(--ink);position:relative;
+  transition:transform .3s var(--ease)}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:22px;height:1px;
+  background:var(--ink);transition:transform .3s var(--ease),opacity .2s}
+.burger span::before{top:-6px}.burger span::after{top:6px}
+.burger[aria-expanded="true"] span{transform:rotate(45deg)}
+.burger[aria-expanded="true"] span::before{transform:translateY(6px) rotate(-90deg)}
+.burger[aria-expanded="true"] span::after{opacity:0}
+
+.sheet{position:fixed;inset:0;z-index:99;background:var(--paper);display:flex;flex-direction:column;
+  justify-content:center;padding:var(--gutter);gap:.5rem;
+  visibility:hidden;opacity:0;transition:opacity .35s var(--ease),visibility .35s}
+.sheet.is-open{visibility:visible;opacity:1}
+.sheet a{font-family:var(--display);font-size:clamp(2rem,9vw,3rem);letter-spacing:-.03em;padding-block:.35rem}
+
+/* ─────────────────────────────  HERO  ───────────────────────────── */
+.hero{padding-top:clamp(8rem,20vh,13rem);padding-bottom:clamp(5rem,10vh,8rem)}
+.hero__copy{grid-column:1/span 8}
+.hero__art{grid-column:10/span 3;align-self:center}
+.hero h1{margin-bottom:clamp(1.5rem,3vw,2.25rem)}
+.hero .lead{max-width:56ch}
+.hero__actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.5rem;
+  margin-top:clamp(2.25rem,4vw,3rem)}
+.hero__note{margin-top:1.5rem}
+
+.nfc{width:100%;height:auto}
+.nfc .card,.nfc .wave{stroke:var(--rule);fill:none;stroke-width:1}
+.nfc .wave--hot{stroke:var(--accent)}
+
+/* ─────────────────────────────  BENEFITS  ───────────────────────────── */
+.benefits__head{grid-column:1/span 7;margin-bottom:clamp(3rem,6vw,4.5rem)}
+.blist{grid-column:1/span 12;display:grid;grid-template-columns:repeat(4,1fr)}
+.blist li{padding:0 clamp(1rem,2vw,1.75rem);border-left:1px solid var(--rule)}
+.blist li:first-child{padding-left:0;border-left:0}
+.blist .num{display:block;font-family:var(--display);font-size:1.5rem;color:var(--ink-faint);
+  margin-bottom:clamp(1.75rem,4vw,2.75rem);font-variant-numeric:tabular-nums}
+.blist h3{margin-bottom:.75rem}
+.blist p{color:var(--ink-soft);font-size:.9375rem;line-height:1.6}
+
+/* ─────────────────────────────  SERVICES  ───────────────────────────── */
+.svc__copy{grid-column:1/span 6}
+.svc__aside{grid-column:8/span 5}
+.svc--flip .svc__copy{grid-column:7/span 6}
+.svc--flip .svc__aside{grid-column:1/span 5}
+.svc h2{margin-bottom:clamp(1.25rem,2.5vw,1.75rem)}
+.svc .lead{max-width:50ch}
+
+.specs{margin-top:clamp(2.5rem,5vw,3.5rem);border-top:1px solid var(--rule)}
+.specs li{display:flex;justify-content:space-between;align-items:baseline;gap:2rem;
+  padding:1rem 0;border-bottom:1px solid var(--rule)}
+.specs .k{font-size:var(--fs-label);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-faint);flex:none}
+.specs .v{text-align:right;font-size:.9375rem}
+
+.price{padding-top:clamp(1.5rem,3vw,2rem);border-top:1px solid var(--rule)}
+.price .label{margin-bottom:1rem}
+.price__fig{font-family:var(--display);font-weight:600;font-size:clamp(2.25rem,4.4vw,3.5rem);
+  line-height:1;letter-spacing:-.04em;color:var(--accent);
+  font-variant-numeric:tabular-nums;display:block;margin-bottom:.625rem}
+.price__sub{font-style:italic;color:var(--ink-faint);font-size:.9375rem}
+.price__note{margin-top:1.25rem;font-size:.875rem;color:var(--ink-soft);line-height:1.55;max-width:36ch}
+
+/* ─────────────────────────────  PROCESS  ───────────────────────────── */
+.steps__head{grid-column:1/span 7;margin-bottom:clamp(3.5rem,7vw,5.5rem)}
+.steps{grid-column:1/span 12;position:relative}
+.steps__axis{position:absolute;top:6px;left:0;width:100%;height:1px;background:var(--rule);
+  transform-origin:left center}
+.steps ol{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.5rem,4vw,3.5rem);position:relative}
+.steps li{padding-top:2.5rem;position:relative}
+.steps li::before{content:"";position:absolute;top:2px;left:0;width:9px;height:9px;border-radius:50%;
+  background:var(--paper);border:1px solid var(--ink)}
+.steps .label{margin-bottom:1rem}
+.steps h3{margin-bottom:.75rem}
+.steps p{color:var(--ink-soft);font-size:.9375rem}
+
+/* ─────────────────────────────  FAQ  ───────────────────────────── */
+.faq__head{grid-column:1/span 5}
+.faq__list{grid-column:7/span 6;border-top:1px solid var(--rule)}
+.faq__item{border-bottom:1px solid var(--rule)}
+.faq__q{display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;width:100%;
+  text-align:left;padding:1.5rem 0;font-family:var(--display);font-size:1.125rem;
+  letter-spacing:-.015em;transition:color .25s}
+.faq__q:hover{color:var(--accent)}
+.faq__ico{position:relative;flex:none;width:14px;height:14px;margin-top:.4rem;
+  transition:transform .4s var(--ease)}
+.faq__ico::before,.faq__ico::after{content:"";position:absolute;background:currentColor}
+.faq__ico::before{top:6.5px;left:0;width:14px;height:1px}
+.faq__ico::after{left:6.5px;top:0;width:1px;height:14px}
+.faq__q[aria-expanded="true"] .faq__ico{transform:rotate(45deg)}
+.faq__a{overflow:hidden}
+.faq__a p{padding:0 3rem 1.75rem 0;color:var(--ink-soft);font-size:.9375rem;max-width:58ch}
+
+/* ─────────────────────────────  CONTACT  ───────────────────────────── */
+.contact__head{grid-column:1/span 5}
+.contact__head h2{margin-bottom:1.25rem}
+.contact__head .lead{max-width:36ch}
+.contact__aside{margin-top:clamp(2rem,4vw,3rem);padding-top:clamp(1.5rem,3vw,2rem);
+  border-top:1px solid var(--rule)}
+.contact__aside p{font-size:.9375rem;color:var(--ink-soft);max-width:34ch}
+.form{grid-column:7/span 6}
+
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(1rem,2vw,1.5rem)}
+.fld{margin-bottom:1.25rem}
+.fld label{display:block;margin-bottom:.5rem;font-size:var(--fs-label);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-faint);font-weight:500}
+.fld .opt{text-transform:none;letter-spacing:0;font-weight:400}
+.fld input,.fld select,.fld textarea{
+  width:100%;padding:.8125rem .9375rem;font:400 1rem/1.4 var(--sans);color:var(--ink);
+  background:var(--paper);border:1px solid var(--rule);border-radius:3px;
+  transition:border-color .25s}
+.fld input:hover,.fld select:hover,.fld textarea:hover{border-color:var(--ink-faint)}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:2px solid var(--accent);
+  outline-offset:1px;border-color:var(--accent)}
+.fld textarea{min-height:110px;resize:vertical;line-height:1.6}
+.fld--bad input,.fld--bad select,.fld--bad textarea{border-color:var(--accent)}
+.fld__err{display:none;margin-top:.4375rem;font-size:.8125rem;color:var(--accent)}
+.fld--bad .fld__err{display:block}
+
+/* Honeypot: off-screen, not type=hidden (bots skip those). */
+.trap{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+
+.form .btn{width:100%;margin-top:.5rem}
+.form .btn[disabled]{opacity:.6;cursor:progress}
+.note{margin-top:1.25rem;padding:.9375rem 1.125rem;border-radius:3px;font-size:.9375rem;
+  line-height:1.55;display:none}
+.note--ok{display:block;background:#EEF3EC;border-left:2px solid #3F5233;color:#2B3823}
+.note--err{display:block;background:#FBEDE6;border-left:2px solid var(--accent);color:#7A3319}
+.note a{text-decoration:underline;font-weight:500}
+.form__fine{margin-top:1.25rem;font-size:.8125rem;color:var(--ink-faint);line-height:1.6}
+
+/* ─────────────────────────────  FOOTER  ───────────────────────────── */
+.foot{background:var(--ink);color:var(--paper);padding-block:clamp(3.5rem,7vw,5rem) 2.5rem}
+.foot__grid{display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:clamp(2rem,5vw,4rem)}
+.foot .mark{margin-bottom:.75rem;display:block}
+.foot p,.foot a,.foot li{font-size:.875rem;color:rgba(250,248,245,.72);line-height:1.7}
+.foot a:hover{color:var(--paper)}
+.foot h4{font-size:var(--fs-label);letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(250,248,245,.58);margin-bottom:1rem;font-family:var(--sans);font-weight:500}
+.foot__base{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+  margin-top:clamp(3rem,6vw,4.5rem);padding-top:1.75rem;border-top:1px solid rgba(250,248,245,.1)}
+.foot__base p{color:rgba(250,248,245,.58);font-size:.8125rem}
+
+/* ─────────────────────────────  RESPONSIVE  ───────────────────────────── */
+@media (max-width:1024px){
+  .hero__copy{grid-column:1/span 12}
+  .hero__art{display:none}
+  .blist{grid-template-columns:repeat(2,1fr);gap:clamp(2.5rem,5vw,3.5rem) 0}
+  .blist li:nth-child(3){padding-left:0;border-left:0}
+  .svc__copy,.svc__aside,.svc--flip .svc__copy,.svc--flip .svc__aside{grid-column:1/span 12}
+  .svc__aside{margin-top:clamp(2.5rem,5vw,3.5rem)}
+  .svc--flip .svc__copy{order:1}.svc--flip .svc__aside{order:2}
+  .benefits__head,.steps__head,.faq__head,.faq__list,.contact__head,.form{grid-column:1/span 12}
+  .faq__head,.contact__head{margin-bottom:clamp(2.5rem,5vw,3.5rem)}
+  .foot__grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  .nav__links{display:none}
+  .burger{display:flex}
+}
+@media (max-width:760px){
+  :root{--section-y:5rem;--fs-display:clamp(2.25rem,8.6vw,3rem)}
+  .blist{grid-template-columns:1fr}
+  .blist li{padding-left:0;border-left:0}
+  .blist .num{margin-bottom:1rem}
+  .steps ol{grid-template-columns:1fr;gap:2.5rem}
+  .steps__axis{display:none}
+  .steps li{padding-top:0;padding-left:1.75rem}
+  .steps li::before{top:.5rem}
+  .hero__actions .btn{flex:1 1 100%}
+  .specs li{flex-direction:column;gap:.35rem}
+  .specs .v{text-align:left}
+  .frow{grid-template-columns:1fr}
+  .foot__grid{grid-template-columns:1fr;gap:2.5rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main" data-i18n="skip">Aller au contenu</a>
+
+<!-- ①  NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <a href="#" class="mark" aria-label="Bilal Studio">Bilal&nbsp;Studio</a>
+
+    <div class="nav__right">
+      <nav class="nav__links" aria-label="Navigation">
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#process" data-i18n="nav.how">Fonctionnement</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="#contact" class="btn btn--ghost nav__cta"><span data-i18n="nav.cta">Nous contacter</span></a>
+      </nav>
+
+      <!-- Language switch -->
+      <div class="lang" role="group" id="langGroup">
+        <button type="button" data-lang="fr" aria-pressed="true"  lang="fr">FR</button>
+        <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+      </div>
+
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="sheet" aria-label="Menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="sheet" id="sheet">
+  <a href="#services" data-i18n="nav.services">Services</a>
+  <a href="#process" data-i18n="nav.how">Fonctionnement</a>
+  <a href="#faq" data-i18n="nav.faq">FAQ</a>
+  <a href="#contact" data-i18n="nav.cta">Nous contacter</a>
+</div>
+
+<main id="main">
+
+<!-- ②  HERO -->
+<section class="hero">
+  <div class="wrap grid">
+    <div class="hero__copy">
+      <p class="label" data-fade data-i18n="hero.eyebrow" style="margin-bottom:clamp(1.5rem,3vw,2rem)">Un seul geste. Plus d'avis. Plus de clients.</p>
+
+      <h1 id="heroTitle">
+        <span class="line"><span>Développez votre</span></span>
+        <span class="line"><span>entreprise <em class="em">plus vite</em></span></span>
+        <span class="line"><span>avec une carte NFC</span></span>
+        <span class="line"><span>d'avis Google</span></span>
+      </h1>
+
+      <p class="lead" data-fade data-i18n="hero.sub">Vous voulez plus d'avis Google, plus de trafic sur votre site et une meilleure visibilité pour votre entreprise&nbsp;? Avec une carte NFC d'avis Google, vos clients laissent un avis instantanément d'un simple geste — sans recherche, sans complication.</p>
+
+      <div class="hero__actions" data-fade>
+        <a href="#contact" class="btn btn--solid"><span data-i18n="hero.cta1">Nous contacter</span></a>
+        <a href="#services" class="tlink" data-i18n="hero.cta2">Voir nos services</a>
+      </div>
+
+      <p class="label hero__note" data-fade data-i18n="hero.note">Cartes 30–45&nbsp;$ &middot; Sites sur devis &middot; Rien à payer d'avance</p>
+    </div>
+
+    <div class="hero__art" aria-hidden="true">
+      <svg class="nfc" viewBox="0 0 240 300" fill="none">
+        <g transform="rotate(-7 120 150)">
+          <rect class="card" x="34" y="96" width="172" height="108" rx="6"/>
+          <path class="card" d="M34 128h172" opacity=".55"/>
+          <path class="card" d="M52 176h44" opacity=".8"/>
+          <path class="card" d="M52 188h68" opacity=".45"/>
+        </g>
+        <g transform="translate(178 106)">
+          <path class="wave wave--hot" id="w1" d="M0 0a16 16 0 0 1 0 32" transform="rotate(-90)"/>
+          <path class="wave" id="w2" d="M0 -8a28 28 0 0 1 0 48" transform="rotate(-90)"/>
+          <path class="wave" id="w3" d="M0 -16a40 40 0 0 1 0 64" transform="rotate(-90)"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ③  BENEFITS -->
+<section id="benefits">
+  <div class="wrap grid">
+    <div class="benefits__head">
+      <div class="eyebrow"><span class="label" data-i18n="ben.eyebrow">01 — Pourquoi ça marche</span><span class="rule"></span></div>
+      <h2 data-i18n="ben.head">Les avis décident qui est trouvé en premier.</h2>
+    </div>
+
+    <ul class="blist">
+      <li data-stagger>
+        <span class="num">01</span>
+        <h3 data-i18n="ben.1.t">Obtenez plus d'avis Google, plus vite</h3>
+        <p data-i18n="ben.1.d">Supprimez chaque étape entre un client satisfait et un avis publié.</p>
+      </li>
+      <li data-stagger>
+        <span class="num">02</span>
+        <h3 data-i18n="ben.2.t">Améliorez votre réputation en ligne</h3>
+        <p data-i18n="ben.2.d">Un flux régulier d'avis récents inspire confiance.</p>
+      </li>
+      <li data-stagger>
+        <span class="num">03</span>
+        <h3 data-i18n="ben.3.t">Attirez plus de trafic vers votre site</h3>
+        <p data-i18n="ben.3.d">Une fiche plus solide dirige davantage de clients locaux vers vous.</p>
+      </li>
+      <li data-stagger>
+        <span class="num">04</span>
+        <h3 data-i18n="ben.4.t">Facilitez le contact avec votre entreprise</h3>
+        <p data-i18n="ben.4.d">Un geste ouvre votre fiche — sur tout téléphone récent, sans rien installer.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ④  SERVICE 01 -->
+<section id="services" class="svc">
+  <div class="wrap grid">
+    <div class="svc__copy">
+      <div class="eyebrow"><span class="label" data-i18n="s1.eyebrow">02 — Service un</span><span class="rule"></span></div>
+      <h2 data-i18n="s1.head">Cartes NFC d'avis Google</h2>
+      <p class="lead" data-i18n="s1.body">Personnalisée avec toutes les informations de votre entreprise, pour que vos clients accèdent à votre fiche Google et laissent un avis en quelques secondes.</p>
+
+      <ul class="specs">
+        <li><span class="k" data-i18n="s1.k1">Personnalisation</span><span class="v" data-i18n="s1.v1">Votre nom, votre identité, votre lien d'avis</span></li>
+        <li><span class="k" data-i18n="s1.k2">Fabrication</span><span class="v" data-i18n="s1.v2">PVC rigide, résistant à l'eau, prêt pour le comptoir</span></li>
+        <li><span class="k" data-i18n="s1.k3">Compatibilité</span><span class="v" data-i18n="s1.v3">Fonctionne avec tout smartphone récent</span></li>
+        <li><span class="k" data-i18n="s1.k4">Installation</span><span class="v" data-i18n="s1.v4">Livrée programmée — rien à configurer</span></li>
+      </ul>
+    </div>
+
+    <aside class="svc__aside">
+      <div class="price" data-fade>
+        <p class="label" data-i18n="s1.priceLabel">Prix spécial</p>
+        <span class="price__fig" data-i18n="s1.priceFig">30–45&nbsp;$</span>
+        <p class="price__sub" data-i18n="s1.priceSub">achat unique</p>
+        <p class="price__note" data-i18n="s1.priceNote">Votre position dans cette fourchette dépend de la complexité du design et du nombre de cartes commandées — plus vous en commandez, moins elles coûtent à l'unité. Dites-nous ce qu'il vous faut et nous confirmerons le montant exact.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ⑤  SERVICE 02 -->
+<section id="web" class="svc svc--flip band">
+  <div class="wrap grid">
+    <div class="svc__copy">
+      <div class="eyebrow"><span class="label" data-i18n="s2.eyebrow">03 — Service deux</span><span class="rule"></span></div>
+      <h2 data-i18n="s2.head">Création de sites professionnels</h2>
+      <p class="lead" data-i18n="s2.body">Des sites modernes et sur mesure, conçus pour transformer vos visiteurs en clients et stimuler votre croissance locale.</p>
+
+      <ul class="specs">
+        <li><span class="k" data-i18n="s2.k1">Responsive</span><span class="v" data-i18n="s2.v1">Conçu mobile d'abord, testé sur de vrais appareils</span></li>
+        <li><span class="k" data-i18n="s2.k2">Performance</span><span class="v" data-i18n="s2.v2">Optimisé pour les Core Web Vitals</span></li>
+        <li><span class="k" data-i18n="s2.k3">SEO local</span><span class="v" data-i18n="s2.v3">Données structurées et fondations on-page</span></li>
+        <li><span class="k" data-i18n="s2.k4">Conversion</span><span class="v" data-i18n="s2.v4">Une mise en page centrée sur une seule action</span></li>
+        <li><span class="k" data-i18n="s2.k5">Intégration</span><span class="v" data-i18n="s2.v5">Reliée à votre fiche Google Business</span></li>
+      </ul>
+    </div>
+
+    <aside class="svc__aside">
+      <div class="price" data-fade>
+        <p class="label" data-i18n="s2.priceLabel">Tarif</p>
+        <span class="price__fig" data-i18n="s2.priceFig">Sur devis</span>
+        <p class="price__sub" data-i18n="s2.priceSub">chiffré, pas de forfait</p>
+        <p class="price__note" data-i18n="s2.priceNote">Chaque site est différent, donc chaque devis aussi. Dites-nous ce dont votre entreprise a besoin et nous le chiffrerons correctement — sans forfait dans lequel il faut se contorsionner.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ⑥  PROCESS -->
+<section id="process">
+  <div class="wrap grid">
+    <div class="steps__head">
+      <div class="eyebrow"><span class="label" data-i18n="pr.eyebrow">04 — Comment ça marche</span><span class="rule"></span></div>
+      <h2 data-i18n="pr.head">On discute d'abord. Vous payez quand vous êtes prêt.</h2>
+    </div>
+
+    <div class="steps">
+      <div class="steps__axis" id="axis"></div>
+      <ol>
+        <li data-step>
+          <p class="label" data-i18n="pr.1.l">Étape un</p>
+          <h3 data-i18n="pr.1.t">Vous nous contactez</h3>
+          <p data-i18n="pr.1.d">Remplissez le formulaire ci-dessous. Aucun paiement, aucun engagement — juste une conversation.</p>
+        </li>
+        <li data-step>
+          <p class="label" data-i18n="pr.2.l">Étape deux</p>
+          <h3 data-i18n="pr.2.t">On se met d'accord</h3>
+          <p data-i18n="pr.2.d">Nous répondons sous 24 heures, confirmons exactement ce que vous obtenez et à quel prix, puis envoyons une facture par e-mail.</p>
+        </li>
+        <li data-step>
+          <p class="label" data-i18n="pr.3.l">Étape trois</p>
+          <h3 data-i18n="pr.3.t">On produit et on livre</h3>
+          <p data-i18n="pr.3.d">Une fois la facture réglée, nous fabriquons votre carte ou créons votre site — et vos clients commencent à scanner.</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ⑦  FAQ -->
+<section id="faq">
+  <div class="wrap grid">
+    <div class="faq__head">
+      <div class="eyebrow"><span class="label" data-i18n="faq.eyebrow">05 — Questions</span><span class="rule"></span></div>
+      <h2 data-i18n="faq.head">Des réponses claires.</h2>
+    </div>
+
+    <div class="faq__list">
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false" aria-controls="a1" id="q1">
+          <span data-i18n="faq.1.q">Comment fonctionne la carte NFC&nbsp;?</span>
+          <span class="faq__ico" aria-hidden="true"></span>
+        </button>
+        <div class="faq__a" id="a1" role="region" aria-labelledby="q1">
+          <p data-i18n="faq.1.a">Une petite puce à l'intérieur de la carte contient le lien vers vos avis Google. Quand un client approche son téléphone de la carte, le téléphone lit la puce et ouvre ce lien immédiatement. Pas de batterie, pas de recharge, pas d'usure — elle fonctionne pareil le premier jour et trois ans plus tard.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false" aria-controls="a2" id="q2">
+          <span data-i18n="faq.2.q">Mes clients doivent-ils installer une application&nbsp;?</span>
+          <span class="faq__ico" aria-hidden="true"></span>
+        </button>
+        <div class="faq__a" id="a2" role="region" aria-labelledby="q2">
+          <p data-i18n="faq.2.a">Non. La lecture NFC est intégrée par défaut aux iPhone et Android récents. Votre client approche son téléphone et la page s'ouvre dans son navigateur habituel. Rien à installer pour lui, rien à expliquer pour vous.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false" aria-controls="a3" id="q3">
+          <span data-i18n="faq.3.q">Comment et quand est-ce que je paie&nbsp;?</span>
+          <span class="faq__ico" aria-hidden="true"></span>
+        </button>
+        <div class="faq__a" id="a3" role="region" aria-labelledby="q3">
+          <p data-i18n="faq.3.a">Pas sur cette page. Contactez-nous d'abord&nbsp;: une fois que nous avons convenu de ce qu'il vous faut et du prix, nous envoyons une facture PayPal par e-mail. Vous payez à partir de là, et c'est seulement ensuite que la production commence. Rien n'est prélevé avant que vous ayez parlé à une personne.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false" aria-controls="a4" id="q4">
+          <span data-i18n="faq.4.q">Puis-je prendre la carte et un site ensemble&nbsp;?</span>
+          <span class="faq__ico" aria-hidden="true"></span>
+        </button>
+        <div class="faq__a" id="a4" role="region" aria-labelledby="q4">
+          <p data-i18n="faq.4.a">Oui, et les deux fonctionnent mieux ensemble&nbsp;: la carte fait grimper vos avis, le site transforme le trafic obtenu en travail signé. Choisissez «&nbsp;Les deux&nbsp;» dans le formulaire et nous chiffrerons l'ensemble comme un seul projet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑧  CONTACT -->
+<section id="contact" class="band">
+  <div class="wrap grid">
+    <div class="contact__head">
+      <div class="eyebrow"><span class="label" data-i18n="ct.eyebrow">06 — Commencer</span><span class="rule"></span></div>
+      <h2 id="ctHead">Dites-nous ce qu'il vous <em class="em">faut</em>.</h2>
+      <p class="lead" data-i18n="ct.lead">Remplissez ceci et vous aurez une réponse sous 24 heures — de la personne qui fera le travail, pas d'un répondeur automatique.</p>
+
+      <div class="contact__aside">
+        <p data-i18n="ct.aside">Aucun paiement maintenant. Nous confirmons d'abord les détails et le prix avec vous, puis nous facturons par e-mail.</p>
+      </div>
+    </div>
+
+    <form class="form" id="leadForm" novalidate>
+      <div class="frow">
+        <div class="fld" data-field="fullName">
+          <label for="f-name" data-i18n="f.name">Nom complet</label>
+          <input id="f-name" name="fullName" type="text" autocomplete="name" required aria-describedby="e-name">
+          <span class="fld__err" id="e-name"></span>
+        </div>
+        <div class="fld" data-field="businessName">
+          <label for="f-biz" data-i18n="f.biz">Nom de l'entreprise</label>
+          <input id="f-biz" name="businessName" type="text" autocomplete="organization" required aria-describedby="e-biz">
+          <span class="fld__err" id="e-biz"></span>
+        </div>
+      </div>
+
+      <div class="frow">
+        <div class="fld" data-field="email">
+          <label for="f-email" data-i18n="f.email">E-mail</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email">
+          <span class="fld__err" id="e-email"></span>
+        </div>
+        <div class="fld" data-field="phone">
+          <label for="f-phone" data-i18n="f.phone">Téléphone</label>
+          <input id="f-phone" name="phone" type="tel" autocomplete="tel" required aria-describedby="e-phone">
+          <span class="fld__err" id="e-phone"></span>
+        </div>
+      </div>
+
+      <div class="fld" data-field="service">
+        <label for="f-service" data-i18n="f.service">Qu'est-ce qu'il vous faut&nbsp;?</label>
+        <!-- NOTE: option VALUES stay in English on purpose — they are what
+             gets submitted, and the backend validates against that list.
+             Only the visible labels are translated. -->
+        <select id="f-service" name="service" required aria-describedby="e-service">
+          <option value="" data-i18n="f.choose">Choisissez…</option>
+          <option value="NFC Review Card" data-i18n="f.optCard">Carte NFC d'avis</option>
+          <option value="Web Design" data-i18n="f.optWeb">Création de site</option>
+          <option value="Both" data-i18n="f.optBoth">Les deux</option>
+          <option value="Other" data-i18n="f.optOther">Autre</option>
+        </select>
+        <span class="fld__err" id="e-service"></span>
+      </div>
+
+      <div class="fld" data-field="notes">
+        <label for="f-notes"><span data-i18n="f.notes">Autre chose&nbsp;?</span> <span class="opt" data-i18n="f.optional">(facultatif)</span></label>
+        <textarea id="f-notes" name="notes" aria-describedby="e-notes"
+          data-i18n-attr="placeholder:f.notesPh"
+          placeholder="Combien de cartes, quel type de site, tout ce qu'on devrait savoir…"></textarea>
+        <span class="fld__err" id="e-notes"></span>
+      </div>
+
+      <!-- Honeypot. `_gotcha` is Formspree's built-in trap name AND is
+           checked by the Node backend. Never remove; never make visible. -->
+      <div class="trap" aria-hidden="true">
+        <label for="f-trap">Company URL</label>
+        <input id="f-trap" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button class="btn btn--solid" type="submit" id="submitBtn"><span data-i18n="f.send">Envoyer la demande</span></button>
+
+      <div class="note" id="formNote" role="status" aria-live="polite"></div>
+
+      <p class="form__fine" data-i18n="f.fine">Nous utilisons ces informations uniquement pour vous répondre. Pas de listes, pas de transfert, pas de marketing.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ⑨  FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <span class="mark">Bilal&nbsp;Studio</span>
+        <p data-i18n="ft.tag">Cartes NFC d'avis Google et sites performants pour les commerces de proximité.</p>
+      </div>
+      <div>
+        <h4 data-i18n="ft.explore">Explorer</h4>
+        <ul>
+          <li><a href="#services" data-i18n="ft.l1">Cartes d'avis</a></li>
+          <li><a href="#web" data-i18n="ft.l2">Création de site</a></li>
+          <li><a href="#process" data-i18n="nav.how">Fonctionnement</a></li>
+          <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="ft.contact">Contact</h4>
+        <ul>
+          <li><a href="mailto:bilalcraft2010@gmail.com">bilalcraft2010@gmail.com</a></li>
+        </ul>
+        <p style="margin-top:1rem" data-i18n="ft.indep">Studio indépendant. Vous traitez directement avec la personne qui fabrique votre carte et crée votre site.</p>
+      </div>
+    </div>
+    <div class="foot__base">
+      <p data-i18n="ft.base">Prix unique. Aucun abonnement.</p>
+      <p>&copy; 2026 Bilal Studio</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" defer></script>
+<script defer>
+document.addEventListener('DOMContentLoaded', function () {
+  'use strict';
+
+  /* ══════════════════════════════════════════════════════════════════
+     ①  CONFIGURATION — the only part you need to edit
+     ══════════════════════════════════════════════════════════════════ */
+  const CONFIG = {
+    /* 'formspree' → no server needed (recommended to start)
+       'api'       → your own Node backend                              */
+    mode: 'formspree',
+
+    /* ── OPTION A: Formspree ────────────────────────────────────────
+       1. Sign up free at https://formspree.io
+       2. New Form → set the destination to bilalcraft2010@gmail.com
+       3. Confirm the verification email Formspree sends you
+       4. Copy the form ID from the endpoint it gives you
+          (https://formspree.io/f/XXXXXXXX  →  the XXXXXXXX part)
+       5. Paste it below, replacing YOUR_FORM_ID entirely.
+
+       Free tier is 50 submissions/month.                              */
+    formspreeId: 'xlgqvodp',
+
+    /* ── OPTION B: your own API ─────────────────────────────────────
+       Set mode:'api' above and put your deployed URL here. No trailing
+       slash. Must be https in production or browsers will block it.   */
+    apiBase: 'https://api.yourdomain.com',
+
+    /* Used for the fallback mailto: link if the network fails. */
+    fallbackEmail: 'bilalcraft2010@gmail.com',
+  };
+
+  /* ══════════════════════════════════════════════════════════════════
+     ②  COPY — French is the source of truth; English is the swap
+     ══════════════════════════════════════════════════════════════════ */
+  const I18N = {
+    en: {
+      docTitle: "Bilal Studio — NFC Google Review Cards & Custom Websites",
+      docDesc: "Grow your business faster with a custom NFC Google Review Card and a high-performance website. One tap, more reviews, more customers. Cards $30–$45, one-time.",
+      skip: 'Skip to content',
+
+      'nav.services': 'Services', 'nav.how': 'How It Works', 'nav.faq': 'FAQ',
+      'nav.cta': 'Get in touch',
+
+      'hero.eyebrow': 'One tap. More reviews. More customers.',
+      heroLines: [
+        'Grow Your Business',
+        '<em class="em">Faster</em> with an NFC',
+        'Google Review Card',
+        '&amp; Custom Websites',
+      ],
+      'hero.sub': 'Want more Google reviews, higher website traffic, and better visibility for your business? With an NFC Google Review Card, your customers can leave a Google review instantly with just one tap—no searching, no hassle.',
+      'hero.cta1': 'Get in touch', 'hero.cta2': 'See what we do',
+      'hero.note': 'Cards $30–$45 · Websites quoted per project · Nothing to pay upfront',
+
+      'ben.eyebrow': '01 — Why it works',
+      'ben.head': 'Reviews decide who gets found first.',
+      'ben.1.t': 'Increase your Google reviews faster',
+      'ben.1.d': 'Remove every step between a happy customer and a posted review.',
+      'ben.2.t': 'Improve your online reputation',
+      'ben.2.d': 'A steady stream of recent reviews signals a business people can trust.',
+      'ben.3.t': 'Drive more traffic to your website',
+      'ben.3.d': 'A stronger profile sends more of your local searchers straight to you.',
+      'ben.4.t': 'Make it easy for customers to connect with your business',
+      'ben.4.d': 'One tap opens your profile — on any modern phone, with nothing to install.',
+
+      's1.eyebrow': '02 — Service one',
+      's1.head': 'NFC Google Review Cards',
+      's1.body': 'Personally customized with all of your business information, making it simple for customers to access your Google profile and leave a review in seconds.',
+      's1.k1': 'Customization', 's1.v1': 'Your name, branding, and review link',
+      's1.k2': 'Build', 's1.v2': 'Rigid PVC, water-resistant, counter-ready',
+      's1.k3': 'Compatibility', 's1.v3': 'Works with any modern smartphone',
+      's1.k4': 'Setup', 's1.v4': 'Arrives programmed — nothing to configure',
+      's1.priceLabel': 'Special price', 's1.priceFig': '$30–$45', 's1.priceSub': 'one-time purchase',
+      's1.priceNote': 'Where you land in the range depends on design complexity and how many cards you order — more cards, lower price each. Tell us what you need and we will confirm the exact figure.',
+
+      's2.eyebrow': '03 — Service two',
+      's2.head': 'Professional Web Design',
+      's2.body': 'Custom, modern websites built to convert visitors into paying clients and drive local growth.',
+      's2.k1': 'Responsive', 's2.v1': 'Built mobile-first, tested on real devices',
+      's2.k2': 'Speed', 's2.v2': 'Engineered to pass Core Web Vitals',
+      's2.k3': 'Local SEO', 's2.v3': 'Structured data and on-page foundations',
+      's2.k4': 'Conversion', 's2.v4': 'Layout built around one clear next step',
+      's2.k5': 'Integration', 's2.v5': 'Connected to your Google Business Profile',
+      's2.priceLabel': 'Pricing', 's2.priceFig': 'Per project', 's2.priceSub': 'quoted, not packaged',
+      's2.priceNote': 'Every site is different, so every quote is too. Tell us what your business needs and we will scope it properly — no packages you have to squeeze into.',
+
+      'pr.eyebrow': '04 — How it works',
+      'pr.head': 'Talk first. Pay when you are ready.',
+      'pr.1.l': 'Step one', 'pr.1.t': 'You Get in Touch',
+      'pr.1.d': 'Send the form below with what you need. No payment, no commitment — just a conversation.',
+      'pr.2.l': 'Step two', 'pr.2.t': 'We Agree the Details',
+      'pr.2.d': 'We reply within 24 hours, confirm exactly what you are getting and what it costs, then send an invoice by email.',
+      'pr.3.l': 'Step three', 'pr.3.t': 'We Build and Ship',
+      'pr.3.d': 'Once the invoice is settled we produce your card or build your site — and your customers start tapping.',
+
+      'faq.eyebrow': '05 — Questions', 'faq.head': 'Straight answers.',
+      'faq.1.q': 'How does the NFC card actually work?',
+      'faq.1.a': 'A small chip inside the card stores your Google review link. When a customer holds their phone near the card, the phone reads the chip and opens that link straight away. No battery, no charging, no wear — it works the same on day one and year three.',
+      'faq.2.q': 'Do customers need to download an app?',
+      'faq.2.a': 'No. NFC reading is built into modern iPhones and Android phones by default. Your customer taps and the page opens in their normal browser. There is nothing for them to install and nothing for you to explain.',
+      'faq.3.q': 'How and when do I pay?',
+      'faq.3.a': 'Not on this page. Get in touch first — once we have agreed exactly what you need and what it costs, we send a PayPal invoice by email. You pay from that, and only then do we start production. Nothing is charged before you have spoken to a person.',
+      'faq.4.q': 'Can I get the card and a website together?',
+      'faq.4.a': 'Yes, and they work better as a pair — the card grows your reviews, the site turns the resulting traffic into booked work. Choose “Both” in the form and we will scope them as one project.',
+
+      'ct.eyebrow': '06 — Get started',
+      ctHead: 'Tell us what you <em class="em">need</em>.',
+      'ct.lead': 'Fill this in and you will hear back within 24 hours — from the person who will do the work, not an autoresponder.',
+      'ct.aside': 'No payment now. We confirm the details and the price with you first, then invoice by email.',
+
+      'f.name': 'Full name', 'f.biz': 'Business name', 'f.email': 'Email', 'f.phone': 'Phone',
+      'f.service': 'What do you need?', 'f.choose': 'Choose one…',
+      'f.optCard': 'NFC Review Card', 'f.optWeb': 'Web Design',
+      'f.optBoth': 'Both', 'f.optOther': 'Other',
+      'f.notes': 'Anything else?', 'f.optional': '(optional)',
+      'f.notesPh': 'How many cards, what kind of site, anything we should know…',
+      'f.send': 'Send enquiry', 'f.sending': 'Sending…',
+      'f.fine': 'We only use these details to reply to you. No lists, no forwarding, no marketing.',
+
+      'msg.ok': 'Thanks — your enquiry is in. We will reply within 24 hours.',
+      'msg.fields': 'Please check the highlighted fields.',
+      'msg.rate': 'Too many attempts. Please wait a few minutes and try again.',
+      'msg.generic': 'Something went wrong.',
+      'msg.network': 'We could not reach the server.',
+      'msg.unconfigured': 'This form is not connected yet.',
+      'msg.mailto': 'Send it by email instead',
+      'msg.required': 'This field is required.',
+      'msg.email': 'That email address does not look right.',
+
+      'ft.tag': 'NFC Google Review Cards and high-performance websites for local business.',
+      'ft.explore': 'Explore', 'ft.l1': 'Review Cards', 'ft.l2': 'Web Design',
+      'ft.contact': 'Contact',
+      'ft.indep': 'Independent studio. You deal directly with the person building your card and your site.',
+      'ft.base': 'One-time pricing. No subscriptions.',
+    },
+  };
+
+  /* French = whatever is already in the HTML. Captured on load so the
+     toggle can restore it without duplicating every string here.
+
+     EXCEPTION: runtime messages (form errors, status text) never appear as
+     DOM elements, so there is nothing to snapshot. They must be declared
+     explicitly or French — the DEFAULT language — would show blank errors. */
+  const FR_MESSAGES = {
+    'f.sending': 'Envoi…',
+    'msg.ok': 'Merci — votre demande est bien reçue. Nous répondons sous 24 heures.',
+    'msg.fields': 'Veuillez vérifier les champs indiqués.',
+    'msg.rate': 'Trop de tentatives. Veuillez patienter quelques minutes.',
+    'msg.generic': "Une erreur s'est produite.",
+    'msg.network': 'Impossible de joindre le serveur.',
+    'msg.unconfigured': "Ce formulaire n'est pas encore connecté.",
+    'msg.mailto': 'Envoyer par e-mail à la place',
+    'msg.required': 'Ce champ est obligatoire.',
+    'msg.email': "Cette adresse e-mail semble incorrecte.",
+  };
+
+  const FR = { heroLines: [], ctHead: '' };
+
+  /* ══════════════════════════════════════════════════════════════════
+     ③  LANGUAGE SWITCHING
+     ══════════════════════════════════════════════════════════════════ */
+  const heroLineSpans = document.querySelectorAll('#heroTitle .line > span');
+  const ctHead = document.getElementById('ctHead');
+  const metaDesc = document.getElementById('metaDesc');
+
+  /* Snapshot the French originals. */
+  document.querySelectorAll('[data-i18n]').forEach(function (el) {
+    FR[el.dataset.i18n] = el.innerHTML;
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(function (el) {
+    const [attr, key] = el.dataset.i18nAttr.split(':');
+    FR['attr:' + key] = el.getAttribute(attr);
+  });
+  heroLineSpans.forEach(function (s) { FR.heroLines.push(s.innerHTML); });
+  FR.ctHead = ctHead.innerHTML;
+  FR.docTitle = document.title;
+  FR.docDesc = metaDesc ? metaDesc.getAttribute('content') : '';
+
+  /* Merge the message strings that had no DOM element to snapshot. */
+  Object.assign(FR, FR_MESSAGES);
+
+  let lang = 'fr';
+
+  function t(key) {
+    if (lang === 'fr') return FR[key];
+    return (I18N.en[key] !== undefined) ? I18N.en[key] : FR[key];
+  }
+
+  function applyLang(next) {
+    lang = (next === 'en') ? 'en' : 'fr';
+    const dict = (lang === 'fr') ? FR : I18N.en;
+
+    document.documentElement.lang = lang;
+    document.title = dict.docTitle || FR.docTitle;
+    if (metaDesc) metaDesc.setAttribute('content', dict.docDesc || FR.docDesc);
+
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      const v = dict[el.dataset.i18n];
+      if (v !== undefined) el.innerHTML = v;
+    });
+
+    document.querySelectorAll('[data-i18n-attr]').forEach(function (el) {
+      const [attr, key] = el.dataset.i18nAttr.split(':');
+      const v = (lang === 'fr') ? FR['attr:' + key] : I18N.en[key];
+      if (v !== undefined) el.setAttribute(attr, v);
+    });
+
+    /* The hero H1 keeps its .line > span elements — only their innerHTML
+       changes. That matters: the spans carry the GSAP mask transform, so
+       replacing them outright would break an already-played reveal. */
+    const lines = dict.heroLines || FR.heroLines;
+    heroLineSpans.forEach(function (s, i) {
+      if (lines[i] !== undefined) s.innerHTML = lines[i];
+    });
+    ctHead.innerHTML = dict.ctHead || FR.ctHead;
+
+    document.querySelectorAll('#langGroup button').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+    });
+
+    try { localStorage.setItem('bilal-lang', lang); } catch (e) { /* private mode */ }
+
+    /* Text length changed, so every scroll trigger's start position moved. */
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  }
+
+  document.querySelectorAll('#langGroup button').forEach(function (b) {
+    b.addEventListener('click', function () { applyLang(b.dataset.lang); });
+  });
+
+  /* French is the default for everyone. We deliberately do NOT sniff
+     navigator.language: the site's primary language is French, and an
+     English-locale browser landing on English would contradict that (and
+     would mean crawlers see a different language than the HTML source).
+     English is opt-in via the toggle, and that choice is remembered. */
+  let saved = null;
+  try { saved = localStorage.getItem('bilal-lang'); } catch (e) { /* private mode */ }
+  if (saved === 'en') applyLang('en');
+
+  /* ══════════════════════════════════════════════════════════════════
+     ④  FORM SUBMISSION
+     ══════════════════════════════════════════════════════════════════ */
+  const form = document.getElementById('leadForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const submitLabel = submitBtn.querySelector('span');
+  const formNote = document.getElementById('formNote');
+
+  const isConfigured = (CONFIG.mode === 'formspree')
+    ? /^[A-Za-z0-9]{6,}$/.test(CONFIG.formspreeId) && CONFIG.formspreeId !== 'YOUR_FORM_ID'
+    : !/yourdomain\.com|localhost/.test(CONFIG.apiBase);
+
+  function clearErrors() {
+    form.querySelectorAll('.fld').forEach(function (f) {
+      f.classList.remove('fld--bad');
+      const input = f.querySelector('input, select, textarea');
+      if (input) input.removeAttribute('aria-invalid');
+      const slot = f.querySelector('.fld__err');
+      if (slot) slot.textContent = '';
+    });
+    formNote.className = 'note';
+    formNote.innerHTML = '';
+  }
+
+  function showFieldErrors(fields) {
+    Object.keys(fields || {}).forEach(function (name) {
+      const wrap = form.querySelector('[data-field="' + name + '"]');
+      if (!wrap) return;
+      wrap.classList.add('fld--bad');
+      const input = wrap.querySelector('input, select, textarea');
+      if (input) input.setAttribute('aria-invalid', 'true');
+      const slot = wrap.querySelector('.fld__err');
+      if (slot) slot.textContent = fields[name];
+    });
+    const firstBad = form.querySelector('.fld--bad input, .fld--bad select, .fld--bad textarea');
+    if (firstBad) firstBad.focus();
+  }
+
+  function note(kind, message, extraHtml) {
+    formNote.className = 'note note--' + kind;
+    formNote.textContent = message;
+    if (extraHtml) formNote.insertAdjacentHTML('beforeend', ' ' + extraHtml);
+  }
+
+  /**
+   * Fallback so a network failure never costs you the lead: build a
+   * mailto: with everything the visitor typed already filled in.
+   */
+  function mailtoFallback(payload) {
+    /* Plain-text labels declared here rather than pulled from t(), because
+       the DOM labels are innerHTML and carry entities like &nbsp; that would
+       show up literally in a plain-text mail body. */
+    const L = (lang === 'fr')
+      ? { n: 'Nom', b: 'Entreprise', e: 'E-mail', p: 'Téléphone', s: 'Service', m: 'Message' }
+      : { n: 'Name', b: 'Business', e: 'Email', p: 'Phone', s: 'Service', m: 'Message' };
+
+    const body = [
+      L.n + ': ' + (payload.fullName || ''),
+      L.b + ': ' + (payload.businessName || ''),
+      L.e + ': ' + (payload.email || ''),
+      L.p + ': ' + (payload.phone || ''),
+      L.s + ': ' + (payload.service || ''),
+      '',
+      L.m + ': ' + (payload.notes || ''),
+    ].join('\n');
+
+    const href = 'mailto:' + CONFIG.fallbackEmail
+      + '?subject=' + encodeURIComponent('Demande / Enquiry — ' + (payload.businessName || payload.fullName || ''))
+      + '&body=' + encodeURIComponent(body);
+
+    return '<a href="' + href + '">' + t('msg.mailto') + '</a>';
+  }
+
+  /** Minimal client-side check so we do not spend a submission on junk. */
+  function validateLocally(payload) {
+    const errors = {};
+    ['fullName', 'businessName', 'phone'].forEach(function (k) {
+      if (!String(payload[k] || '').trim()) errors[k] = t('msg.required');
+    });
+    if (!String(payload.service || '').trim()) errors.service = t('msg.required');
+    const email = String(payload.email || '').trim();
+    if (!email) errors.email = t('msg.required');
+    else if (!/^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/.test(email)) errors.email = t('msg.email');
+    return errors;
+  }
+
+  /* ── Transport: Formspree ─────────────────────────────────────────
+     Accept: application/json is REQUIRED. Without it Formspree replies
+     with an HTML redirect instead of JSON and this handler cannot read
+     the result. */
+  async function sendViaFormspree(payload) {
+    const res = await fetch('https://formspree.io/f/' + CONFIG.formspreeId, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(Object.assign({}, payload, {
+        _subject: 'Nouvelle demande — ' + (payload.businessName || payload.fullName || ''),
+      })),
+    });
+
+    let data = {};
+    try { data = await res.json(); } catch (e) { /* not JSON */ }
+
+    if (res.ok) return { ok: true };
+
+    /* Formspree returns { errors: [{ field, message }] } */
+    if (Array.isArray(data.errors) && data.errors.length) {
+      const fields = {};
+      let general = '';
+      data.errors.forEach(function (e) {
+        if (e.field) fields[e.field] = e.message;
+        else general = e.message;
+      });
+      return { ok: false, fields: Object.keys(fields).length ? fields : null, error: general };
+    }
+    return { ok: false, error: t('msg.generic') };
+  }
+
+  /* ── Transport: your own Node API ─────────────────────────────────── */
+  async function sendViaApi(payload) {
+    const res = await fetch(CONFIG.apiBase + '/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    let data = {};
+    try { data = await res.json(); } catch (e) { /* proxy error page, not JSON */ }
+
+    if (res.status === 422 && data.fields) return { ok: false, fields: data.fields, error: data.error };
+    if (res.status === 429) return { ok: false, error: t('msg.rate') };
+    if (!res.ok || !data.ok) return { ok: false, error: data.error || t('msg.generic') };
+    return { ok: true, message: data.message };
+  }
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();               /* no page reload */
+    clearErrors();
+
+    const payload = Object.fromEntries(new FormData(form).entries());
+
+    /* Honeypot: pretend success, send nothing. */
+    if (String(payload._gotcha || '').trim()) {
+      note('ok', t('msg.ok'));
+      form.reset();
+      return;
+    }
+
+    const localErrors = validateLocally(payload);
+    if (Object.keys(localErrors).length) {
+      showFieldErrors(localErrors);
+      note('err', t('msg.fields'));
+      return;
+    }
+
+    /* The failure your form was actually hitting. Say what is wrong
+       instead of blaming the visitor's connection. */
+    if (!isConfigured) {
+      note('err', t('msg.unconfigured'), mailtoFallback(payload));
+      console.error(
+        '[form] Not configured. mode=' + CONFIG.mode + '. '
+        + (CONFIG.mode === 'formspree'
+          ? 'Set CONFIG.formspreeId to your real Formspree form ID.'
+          : 'Set CONFIG.apiBase to your deployed API URL.'),
+      );
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitLabel.textContent = t('f.sending');
+
+    try {
+      const result = (CONFIG.mode === 'formspree')
+        ? await sendViaFormspree(payload)
+        : await sendViaApi(payload);
+
+      if (result.ok) {
+        note('ok', result.message || t('msg.ok'));
+        form.reset();
+        return;
+      }
+      if (result.fields) {
+        showFieldErrors(result.fields);
+        note('err', result.error || t('msg.fields'));
+        return;
+      }
+      note('err', result.error || t('msg.generic'), mailtoFallback(payload));
+
+    } catch (err) {
+      /* Genuine network-level failure: offline, DNS, CORS, server down.
+         Offer the mailto so the lead still reaches you. */
+      console.error('[form] request failed', err);
+      note('err', t('msg.network'), mailtoFallback(payload));
+    } finally {
+      submitBtn.disabled = false;
+      submitLabel.textContent = t('f.send');
+    }
+  });
+
+  /* ══════════════════════════════════════════════════════════════════
+     ⑤  NAV + ACCORDION (no GSAP required)
+     ══════════════════════════════════════════════════════════════════ */
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasGsap = typeof window.gsap !== 'undefined';
+
+  const burger = document.getElementById('burger');
+  const sheet = document.getElementById('sheet');
+
+  burger.addEventListener('click', function () {
+    const open = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', String(!open));
+    sheet.classList.toggle('is-open', !open);
+    document.body.style.overflow = !open ? 'hidden' : '';
+  });
+  sheet.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      burger.setAttribute('aria-expanded', 'false');
+      sheet.classList.remove('is-open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  document.querySelectorAll('.faq__q').forEach(function (btn) {
+    const panel = document.getElementById(btn.getAttribute('aria-controls'));
+    panel.style.height = '0px';
+    btn.addEventListener('click', function () {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      const target = open ? 0 : panel.scrollHeight;
+      if (hasGsap && !reduce) {
+        gsap.to(panel, {
+          height: target, duration: .5, ease: 'expo.out',
+          onComplete: function () { if (!open) panel.style.height = 'auto'; },
+        });
+      } else {
+        panel.style.height = open ? '0px' : 'auto';
+      }
+    });
+  });
+
+  const nav = document.getElementById('nav');
+  function navState(y) { nav.classList.toggle('is-stuck', y > 80); }
+  navState(window.scrollY);
+
+  if (!hasGsap || reduce) {
+    window.addEventListener('scroll', function () { navState(window.scrollY); }, { passive: true });
+    return;   /* everything already in its final visible state */
+  }
+
+  /* ══════════════════════════════════════════════════════════════════
+     ⑥  MOTION
+     ══════════════════════════════════════════════════════════════════ */
+  gsap.registerPlugin(ScrollTrigger);
+
+  const lenis = new Lenis({
+    duration: 1.1,
+    easing: function (x) { return Math.min(1, 1.001 - Math.pow(2, -10 * x)); },
+    smoothWheel: true,
+  });
+  lenis.on('scroll', ScrollTrigger.update);
+  lenis.on('scroll', function (e) { navState(e.scroll); });
+  gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+  gsap.ticker.lagSmoothing(0);
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      lenis.scrollTo(el, { offset: -76 });
+    });
+  });
+
+  const EASE = 'expo.out';
+  const once = { toggleActions: 'play none none none' };
+
+  gsap.set('.line>span', { yPercent: 105 });
+  gsap.set('[data-fade]', { opacity: 0, y: 16 });
+  gsap.set('[data-stagger]', { opacity: 0, y: 28 });
+  gsap.set('[data-step]', { opacity: 0, y: 20 });
+  gsap.set('.eyebrow .rule', { scaleX: 0 });
+  gsap.set('.eyebrow .label', { opacity: 0 });
+  gsap.set('#axis', { scaleX: 0 });
+
+  gsap.timeline({ defaults: { ease: EASE } })
+    .to('.hero .label:first-of-type', { opacity: 1, y: 0, duration: .8 }, 0)
+    .to('.hero .line>span', { yPercent: 0, duration: 1.1, stagger: .07 }, .1)
+    .to('.hero .lead, .hero__actions, .hero__note', { opacity: 1, y: 0, duration: .9, stagger: .08 }, .6);
+
+  ['#w1', '#w2', '#w3'].forEach(function (sel, i) {
+    gsap.fromTo(sel, { opacity: .35 }, {
+      opacity: 0, duration: 2.4, repeat: -1, delay: i * .45, ease: 'power1.out',
+    });
+  });
+
+  gsap.utils.toArray('.eyebrow').forEach(function (row) {
+    gsap.timeline({ scrollTrigger: Object.assign({ trigger: row, start: 'top 88%' }, once), defaults: { ease: EASE } })
+      .to(row.querySelectorAll('.rule'), { scaleX: 1, duration: .9 })
+      .to(row.querySelector('.label'), { opacity: 1, duration: .6 }, .15);
+  });
+
+  gsap.to('[data-stagger]', {
+    opacity: 1, y: 0, duration: .9, stagger: .08, ease: EASE,
+    scrollTrigger: Object.assign({ trigger: '.blist', start: 'top 78%' }, once),
+  });
+
+  gsap.timeline({ scrollTrigger: Object.assign({ trigger: '.steps', start: 'top 76%' }, once), defaults: { ease: EASE } })
+    .to('#axis', { scaleX: 1, duration: 1.2 })
+    .to('[data-step]', { opacity: 1, y: 0, duration: .8, stagger: .18 }, .25);
+
+  gsap.utils.toArray('[data-fade]').forEach(function (el) {
+    if (el.closest('.hero')) return;
+    gsap.to(el, {
+      opacity: 1, y: 0, duration: .9, ease: EASE,
+      scrollTrigger: Object.assign({ trigger: el, start: 'top 85%' }, once),
+    });
+  });
+
+  gsap.to('#ctHead', {
+    yPercent: -6, ease: 'none',
+    scrollTrigger: { trigger: '#ctHead', start: 'top bottom', end: 'bottom top', scrub: true },
+  });
+
+  ScrollTrigger.refresh();
+});
+</script>
+</body>
+</html>

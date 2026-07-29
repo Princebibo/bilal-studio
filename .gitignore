@@ -1,0 +1,29 @@
+# ── Dependencies ─────────────────────────────────────────────
+node_modules/
+
+# ── Secrets ──────────────────────────────────────────────────
+# Never commit a real .env. The template (.env.example) is tracked.
+.env
+.env.*
+!.env.example
+
+# ── Local tooling ────────────────────────────────────────────
+# .claude/ holds installed third-party skills (several MB) and
+# machine-specific permission grants. launch.json is the shared
+# dev-server config, so that one is kept.
+.claude/*
+!.claude/launch.json
+
+# ── Build / logs / OS noise ──────────────────────────────────
+dist/
+build/
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editor ───────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
