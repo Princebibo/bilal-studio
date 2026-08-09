@@ -691,7 +691,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
           <span class="faq__ico" aria-hidden="true"></span>
         </button>
         <div class="faq__a" id="a4" role="region" aria-labelledby="q4">
-          <p data-i18n="faq.4.a">Oui, et les deux fonctionnent mieux ensemble&nbsp;: la carte fait grimper vos avis, le site transforme le trafic obtenu en travail signé. Choisissez «&nbsp;Les deux&nbsp;» dans le formulaire et nous chiffrerons l'ensemble comme un seul projet.</p>
+          <p data-i18n="faq.4.a">Oui, et les deux fonctionnent mieux ensemble&nbsp;: la carte fait grimper vos avis, le site transforme le trafic obtenu en travail signé. Choisissez «&nbsp;Produit + site web&nbsp;» dans le formulaire et nous chiffrerons l'ensemble comme un seul projet.</p>
         </div>
       </div>
     </div>
@@ -746,8 +746,10 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
         <select id="f-service" name="service" required aria-describedby="e-service">
           <option value="" data-i18n="f.choose">Choisissez…</option>
           <option value="NFC Review Card" data-i18n="f.optCard">Carte NFC d'avis</option>
+          <option value="NFC Wristband" data-i18n="f.optBand">Bracelet NFC</option>
+          <option value="Stand or Sign" data-i18n="f.optStand">Présentoir ou chevalet</option>
           <option value="Web Design" data-i18n="f.optWeb">Création de site</option>
-          <option value="Both" data-i18n="f.optBoth">Les deux</option>
+          <option value="Product + Website" data-i18n="f.optBoth">Produit + site web</option>
           <option value="Other" data-i18n="f.optOther">Autre</option>
         </select>
         <span class="fld__err" id="e-service"></span>
@@ -929,7 +931,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'faq.3.q': 'How and when do I pay?',
       'faq.3.a': 'Not on this page. Get in touch first — once we have agreed exactly what you need and what it costs, we send a PayPal invoice by email. You pay from that, and only then do we start production. Nothing is charged before you have spoken to a person.',
       'faq.4.q': 'Can I get the card and a website together?',
-      'faq.4.a': 'Yes, and they work better as a pair — the card grows your reviews, the site turns the resulting traffic into booked work. Choose “Both” in the form and we will scope them as one project.',
+      'faq.4.a': 'Yes, and they work better as a pair — the card grows your reviews, the site turns the resulting traffic into booked work. Choose “Product + Website” in the form and we will scope them as one project.',
 
       'ct.eyebrow': '07 — Get started',
       ctHead: 'Tell us what you <em class="em">need</em>.',
@@ -938,8 +940,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       'f.name': 'Full name', 'f.biz': 'Business name', 'f.email': 'Email', 'f.phone': 'Phone',
       'f.service': 'What do you need?', 'f.choose': 'Choose one…',
-      'f.optCard': 'NFC Review Card', 'f.optWeb': 'Web Design',
-      'f.optBoth': 'Both', 'f.optOther': 'Other',
+      'f.optCard': 'NFC Review Card', 'f.optBand': 'NFC Wristband',
+      'f.optStand': 'Stand or Sign', 'f.optWeb': 'Web Design',
+      'f.optBoth': 'Product + Website', 'f.optOther': 'Other',
       'f.notes': 'Anything else?', 'f.optional': '(optional)',
       'f.notesPh': 'How many cards, what kind of site, anything we should know…',
       'f.send': 'Send enquiry', 'f.sending': 'Sending…',

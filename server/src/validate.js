@@ -11,9 +11,22 @@
  * them, instead of failing on the first problem it finds.
  */
 
+/**
+ * Must stay in sync with the <option value> list in index.html.
+ *
+ * Anything not on this list is normalised to 'Other' below, so a value
+ * added to the form but forgotten here silently loses information — the
+ * lead still arrives, but you cannot tell what they asked for.
+ *
+ * 'Both' is retained for older submissions still in flight; the form now
+ * sends 'Product + Website'.
+ */
 const SERVICES = [
   'NFC Review Card',
+  'NFC Wristband',
+  'Stand or Sign',
   'Web Design',
+  'Product + Website',
   'Both',
   'Other',
 ];
