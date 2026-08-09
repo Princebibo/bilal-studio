@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bilal Studio — Cartes NFC d'avis Google & sites sur mesure</title>
-<meta name="description" id="metaDesc" content="Développez votre entreprise plus vite avec une carte NFC d'avis Google et un site performant. Un geste, plus d'avis, plus de clients. Cartes 30–45 $, achat unique.">
+<meta name="description" id="metaDesc" content="Développez votre entreprise plus vite avec une carte NFC d'avis Google et un site performant. Un geste, plus d'avis, plus de clients. Cartes 15–45 $, achat unique.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -187,6 +187,43 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 .price__sub{font-style:italic;color:var(--ink-faint);font-size:.9375rem}
 .price__note{margin-top:1.25rem;font-size:.875rem;color:var(--ink-soft);line-height:1.55;max-width:36ch}
 
+/* ─────────────────────────────  PRODUCTS  ───────────────────────────── */
+.prod__head{grid-column:1/span 7;margin-bottom:clamp(3rem,6vw,4.5rem)}
+.prods{grid-column:1/span 12;display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(2rem,4vw,3rem) clamp(1.25rem,2.5vw,2rem)}
+.prod{display:flex;flex-direction:column}
+
+/* aspect-ratio reserves the box before the image loads, so nothing
+   shifts as photos stream in (no CLS). */
+.prod__media{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:4px;
+  background:var(--paper-alt);border:1px solid var(--rule);margin-bottom:1rem}
+.prod__media img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .7s var(--ease)}
+.prod:hover .prod__media img{transform:scale(1.035)}
+
+/* Shown when the photo is absent or fails to load — a labelled slot
+   rather than a broken-image icon. */
+.prod__media::after{content:attr(data-label);position:absolute;inset:0;
+  display:none;align-items:center;justify-content:center;text-align:center;
+  padding:1.5rem;font-size:var(--fs-label);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-faint);line-height:1.7}
+.prod__media.is-empty::after{display:flex}
+.prod__media.is-empty{background:
+  repeating-linear-gradient(-45deg,transparent,transparent 9px,rgba(110,104,100,.055) 9px,rgba(110,104,100,.055) 18px),
+  var(--paper-alt)}
+
+.prod__row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  padding-top:.8125rem;border-top:1px solid var(--rule)}
+.prod__name{font-family:var(--display);font-weight:500;font-size:1.0625rem;
+  letter-spacing:-.015em;line-height:1.3}
+.prod__price{font-weight:500;font-size:1rem;white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+.prod__note{margin-top:.4375rem;font-size:.8125rem;color:var(--ink-faint);line-height:1.5}
+.prods__foot{grid-column:1/span 12;margin-top:clamp(2.5rem,5vw,3.5rem);
+  padding-top:1.5rem;border-top:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:baseline;justify-content:space-between}
+.prods__foot p{font-size:.9375rem;color:var(--ink-soft);max-width:52ch}
+
 /* ─────────────────────────────  PROCESS  ───────────────────────────── */
 .steps__head{grid-column:1/span 7;margin-bottom:clamp(3.5rem,7vw,5.5rem)}
 .steps{grid-column:1/span 12;position:relative}
@@ -276,7 +313,8 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
   .svc__copy,.svc__aside,.svc--flip .svc__copy,.svc--flip .svc__aside{grid-column:1/span 12}
   .svc__aside{margin-top:clamp(2.5rem,5vw,3.5rem)}
   .svc--flip .svc__copy{order:1}.svc--flip .svc__aside{order:2}
-  .benefits__head,.steps__head,.faq__head,.faq__list,.contact__head,.form{grid-column:1/span 12}
+  .benefits__head,.steps__head,.faq__head,.faq__list,.contact__head,.form,.prod__head{grid-column:1/span 12}
+  .prods{grid-template-columns:repeat(2,1fr)}
   .faq__head,.contact__head{margin-bottom:clamp(2.5rem,5vw,3.5rem)}
   .foot__grid{grid-template-columns:1fr 1fr}
 }
@@ -318,6 +356,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
     <div class="nav__right">
       <nav class="nav__links" aria-label="Navigation">
         <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#products" data-i18n="nav.products">Produits</a>
         <a href="#process" data-i18n="nav.how">Fonctionnement</a>
         <a href="#faq" data-i18n="nav.faq">FAQ</a>
         <a href="#contact" class="btn btn--ghost nav__cta"><span data-i18n="nav.cta">Nous contacter</span></a>
@@ -336,6 +375,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 
 <div class="sheet" id="sheet">
   <a href="#services" data-i18n="nav.services">Services</a>
+  <a href="#products" data-i18n="nav.products">Produits</a>
   <a href="#process" data-i18n="nav.how">Fonctionnement</a>
   <a href="#faq" data-i18n="nav.faq">FAQ</a>
   <a href="#contact" data-i18n="nav.cta">Nous contacter</a>
@@ -363,7 +403,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
         <a href="#services" class="tlink" data-i18n="hero.cta2">Voir nos services</a>
       </div>
 
-      <p class="label hero__note" data-fade data-i18n="hero.note">Cartes 30–45&nbsp;$ &middot; Sites sur devis &middot; Rien à payer d'avance</p>
+      <p class="label hero__note" data-fade data-i18n="hero.note">Cartes 15–45&nbsp;$ &middot; Sites sur devis &middot; Rien à payer d'avance</p>
     </div>
 
     <div class="hero__art" aria-hidden="true">
@@ -440,19 +480,114 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
     <aside class="svc__aside">
       <div class="price" data-fade>
         <p class="label" data-i18n="s1.priceLabel">Prix spécial</p>
-        <span class="price__fig" data-i18n="s1.priceFig">30–45&nbsp;$</span>
+        <span class="price__fig" data-i18n="s1.priceFig">15–45&nbsp;$</span>
         <p class="price__sub" data-i18n="s1.priceSub">achat unique</p>
-        <p class="price__note" data-i18n="s1.priceNote">Votre position dans cette fourchette dépend de la complexité du design et du nombre de cartes commandées — plus vous en commandez, moins elles coûtent à l'unité. Dites-nous ce qu'il vous faut et nous confirmerons le montant exact.</p>
+        <p class="price__note" data-i18n="s1.priceNote">Votre position dans cette fourchette dépend de l'article, de la finition et de la quantité commandée — plus vous en commandez, moins ils coûtent à l'unité. Dites-nous ce qu'il vous faut et nous confirmerons le montant exact.</p>
       </div>
     </aside>
   </div>
 </section>
 
-<!-- ⑤  SERVICE 02 -->
-<section id="web" class="svc svc--flip band">
+<!-- ⑤  PRODUCTS -->
+<section id="products" class="band">
+  <div class="wrap grid">
+    <div class="prod__head">
+      <div class="eyebrow"><span class="label" data-i18n="pd.eyebrow">03 — La gamme</span><span class="rule"></span></div>
+      <h2 data-i18n="pd.head">Cartes, chevalets et bracelets.</h2>
+    </div>
+
+    <!--
+      Photos live in images/. Each .prod__media carries data-label, which is
+      revealed as a labelled placeholder if the file is missing, so a
+      not-yet-uploaded photo never renders as a broken-image icon.
+      width/height + aspect-ratio reserve the box, so no layout shift.
+    -->
+    <ul class="prods">
+      <li class="prod" data-stagger>
+        <div class="prod__media" data-label="images/nfc-card-google-white.jpg">
+          <img src="images/nfc-card-google-white.jpg" width="640" height="800" loading="lazy" decoding="async"
+               alt="Pile de cartes NFC blanches « Review us on Google » posées sur un bureau en bois">
+        </div>
+        <div class="prod__row">
+          <span class="prod__name" data-i18n="pd.1.n">Carte NFC Google</span>
+          <span class="prod__price" data-i18n="pd.1.p">30&nbsp;$</span>
+        </div>
+        <p class="prod__note" data-i18n="pd.1.d">PVC rigide blanc, finition mate</p>
+      </li>
+
+      <li class="prod" data-stagger>
+        <div class="prod__media" data-label="images/nfc-card-wood.jpg">
+          <img src="images/nfc-card-wood.jpg" width="640" height="800" loading="lazy" decoding="async"
+               alt="Carte NFC en bois véritable posée sur une table sombre">
+        </div>
+        <div class="prod__row">
+          <span class="prod__name" data-i18n="pd.2.n">Carte NFC en bois</span>
+          <span class="prod__price" data-i18n="pd.2.p">15&nbsp;$</span>
+        </div>
+        <p class="prod__note" data-i18n="pd.2.d">Bois véritable, gravure laser</p>
+      </li>
+
+      <li class="prod" data-stagger>
+        <div class="prod__media" data-label="images/nfc-stand-acrylic-google.jpg">
+          <img src="images/nfc-stand-acrylic-google.jpg" width="640" height="800" loading="lazy" decoding="async"
+               alt="Présentoir acrylique « Notez-nous sur Google » avec zone NFC et code QR, sur un comptoir de café">
+        </div>
+        <div class="prod__row">
+          <span class="prod__name" data-i18n="pd.3.n">Présentoir acrylique</span>
+          <span class="prod__price" data-i18n="pd.3.p">35&nbsp;$</span>
+        </div>
+        <p class="prod__note" data-i18n="pd.3.d">Acrylique sur socle, NFC + code QR</p>
+      </li>
+
+      <li class="prod" data-stagger>
+        <div class="prod__media" data-label="images/nfc-stand-google-dark.jpg">
+          <img src="images/nfc-stand-google-dark.jpg" width="640" height="800" loading="lazy" decoding="async"
+               alt="Chevalet noir « Review us on Google » avec pictogramme NFC et code QR, sur un comptoir">
+        </div>
+        <div class="prod__row">
+          <span class="prod__name" data-i18n="pd.4.n">Chevalet comptoir</span>
+          <span class="prod__price" data-i18n="pd.4.p">40&nbsp;$</span>
+        </div>
+        <p class="prod__note" data-i18n="pd.4.d">Grand format, « approchez ou scannez »</p>
+      </li>
+
+      <li class="prod" data-stagger>
+        <div class="prod__media" data-label="images/nfc-wristband-fabric.jpg">
+          <img src="images/nfc-wristband-fabric.jpg" width="640" height="800" loading="lazy" decoding="async"
+               alt="Bracelet NFC en tissu noir avec logo NFC">
+        </div>
+        <div class="prod__row">
+          <span class="prod__name" data-i18n="pd.5.n">Bracelet NFC tissu</span>
+          <span class="prod__price" data-i18n="pd.5.p">25&nbsp;$</span>
+        </div>
+        <p class="prod__note" data-i18n="pd.5.d">Tissu ajustable, résistant à l'eau</p>
+      </li>
+
+      <li class="prod" data-stagger>
+        <div class="prod__media" data-label="images/nfc-wristband-kids-security.jpg">
+          <img src="images/nfc-wristband-kids-security.jpg" width="640" height="800" loading="lazy" decoding="async"
+               alt="Bracelet de sécurité NFC pour enfant, tissu noir">
+        </div>
+        <div class="prod__row">
+          <span class="prod__name" data-i18n="pd.6.n">Bracelet sécurité enfant</span>
+          <span class="prod__price" data-i18n="pd.6.p">25&nbsp;$</span>
+        </div>
+        <p class="prod__note" data-i18n="pd.6.d">Contact d'urgence en un geste</p>
+      </li>
+    </ul>
+
+    <div class="prods__foot" data-fade>
+      <p data-i18n="pd.foot">Tous les articles sont personnalisés avec vos informations et livrés programmés. Dites-nous ce qu'il vous faut et nous confirmons le prix exact.</p>
+      <a href="#contact" class="tlink" data-i18n="pd.cta">Demander un prix&nbsp;&rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥  SERVICE 02 -->
+<section id="web" class="svc svc--flip">
   <div class="wrap grid">
     <div class="svc__copy">
-      <div class="eyebrow"><span class="label" data-i18n="s2.eyebrow">03 — Service deux</span><span class="rule"></span></div>
+      <div class="eyebrow"><span class="label" data-i18n="s2.eyebrow">04 — Service deux</span><span class="rule"></span></div>
       <h2 data-i18n="s2.head">Création de sites professionnels</h2>
       <p class="lead" data-i18n="s2.body">Des sites modernes et sur mesure, conçus pour transformer vos visiteurs en clients et stimuler votre croissance locale.</p>
 
@@ -478,11 +613,11 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 
 <hr class="hr">
 
-<!-- ⑥  PROCESS -->
+<!-- ⑦  PROCESS -->
 <section id="process">
   <div class="wrap grid">
     <div class="steps__head">
-      <div class="eyebrow"><span class="label" data-i18n="pr.eyebrow">04 — Comment ça marche</span><span class="rule"></span></div>
+      <div class="eyebrow"><span class="label" data-i18n="pr.eyebrow">05 — Comment ça marche</span><span class="rule"></span></div>
       <h2 data-i18n="pr.head">On discute d'abord. Vous payez quand vous êtes prêt.</h2>
     </div>
 
@@ -511,11 +646,11 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 
 <hr class="hr">
 
-<!-- ⑦  FAQ -->
+<!-- ⑧  FAQ -->
 <section id="faq">
   <div class="wrap grid">
     <div class="faq__head">
-      <div class="eyebrow"><span class="label" data-i18n="faq.eyebrow">05 — Questions</span><span class="rule"></span></div>
+      <div class="eyebrow"><span class="label" data-i18n="faq.eyebrow">06 — Questions</span><span class="rule"></span></div>
       <h2 data-i18n="faq.head">Des réponses claires.</h2>
     </div>
 
@@ -563,11 +698,11 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
   </div>
 </section>
 
-<!-- ⑧  CONTACT -->
+<!-- ⑨  CONTACT -->
 <section id="contact" class="band">
   <div class="wrap grid">
     <div class="contact__head">
-      <div class="eyebrow"><span class="label" data-i18n="ct.eyebrow">06 — Commencer</span><span class="rule"></span></div>
+      <div class="eyebrow"><span class="label" data-i18n="ct.eyebrow">07 — Commencer</span><span class="rule"></span></div>
       <h2 id="ctHead">Dites-nous ce qu'il vous <em class="em">faut</em>.</h2>
       <p class="lead" data-i18n="ct.lead">Remplissez ceci et vous aurez une réponse sous 24 heures — de la personne qui fera le travail, pas d'un répondeur automatique.</p>
 
@@ -644,7 +779,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 
 </main>
 
-<!-- ⑨  FOOTER -->
+<!-- ⑩  FOOTER -->
 <footer class="foot">
   <div class="wrap">
     <div class="foot__grid">
@@ -717,10 +852,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const I18N = {
     en: {
       docTitle: "Bilal Studio — NFC Google Review Cards & Custom Websites",
-      docDesc: "Grow your business faster with a custom NFC Google Review Card and a high-performance website. One tap, more reviews, more customers. Cards $30–$45, one-time.",
+      docDesc: "Grow your business faster with a custom NFC Google Review Card and a high-performance website. One tap, more reviews, more customers. Cards $15–$45, one-time.",
       skip: 'Skip to content',
 
-      'nav.services': 'Services', 'nav.how': 'How It Works', 'nav.faq': 'FAQ',
+      'nav.services': 'Services', 'nav.products': 'Products', 'nav.how': 'How It Works', 'nav.faq': 'FAQ',
       'nav.cta': 'Get in touch',
 
       'hero.eyebrow': 'One tap. More reviews. More customers.',
@@ -732,7 +867,7 @@ document.addEventListener('DOMContentLoaded', function () {
       ],
       'hero.sub': 'Want more Google reviews, higher website traffic, and better visibility for your business? With an NFC Google Review Card, your customers can leave a Google review instantly with just one tap—no searching, no hassle.',
       'hero.cta1': 'Get in touch', 'hero.cta2': 'See what we do',
-      'hero.note': 'Cards $30–$45 · Websites quoted per project · Nothing to pay upfront',
+      'hero.note': 'Cards $15–$45 · Websites quoted per project · Nothing to pay upfront',
 
       'ben.eyebrow': '01 — Why it works',
       'ben.head': 'Reviews decide who gets found first.',
@@ -752,10 +887,21 @@ document.addEventListener('DOMContentLoaded', function () {
       's1.k2': 'Build', 's1.v2': 'Rigid PVC, water-resistant, counter-ready',
       's1.k3': 'Compatibility', 's1.v3': 'Works with any modern smartphone',
       's1.k4': 'Setup', 's1.v4': 'Arrives programmed — nothing to configure',
-      's1.priceLabel': 'Special price', 's1.priceFig': '$30–$45', 's1.priceSub': 'one-time purchase',
-      's1.priceNote': 'Where you land in the range depends on design complexity and how many cards you order — more cards, lower price each. Tell us what you need and we will confirm the exact figure.',
+      's1.priceLabel': 'Special price', 's1.priceFig': '$15–$45', 's1.priceSub': 'one-time purchase',
+      's1.priceNote': 'Where you land in the range depends on the item, the finish, and how many you order — more units, lower price each. Tell us what you need and we will confirm the exact figure.',
 
-      's2.eyebrow': '03 — Service two',
+      'pd.eyebrow': '03 — The range',
+      'pd.head': 'Cards, stands and wristbands.',
+      'pd.1.n': 'Google NFC Card', 'pd.1.p': '$30', 'pd.1.d': 'Rigid white PVC, matte finish',
+      'pd.2.n': 'Wood NFC Card', 'pd.2.p': '$15', 'pd.2.d': 'Real wood, laser engraved',
+      'pd.3.n': 'Acrylic Stand', 'pd.3.p': '$35', 'pd.3.d': 'Acrylic on base, NFC + QR code',
+      'pd.4.n': 'Counter Sign', 'pd.4.p': '$40', 'pd.4.d': 'Large format, “tap or scan”',
+      'pd.5.n': 'NFC Fabric Wristband', 'pd.5.p': '$25', 'pd.5.d': 'Adjustable fabric, water-resistant',
+      'pd.6.n': 'Kids Safety Wristband', 'pd.6.p': '$25', 'pd.6.d': 'Emergency contact in one tap',
+      'pd.foot': 'Every item is personalised with your details and arrives programmed. Tell us what you need and we will confirm the exact price.',
+      'pd.cta': 'Ask for a price →',
+
+      's2.eyebrow': '04 — Service two',
       's2.head': 'Professional Web Design',
       's2.body': 'Custom, modern websites built to convert visitors into paying clients and drive local growth.',
       's2.k1': 'Responsive', 's2.v1': 'Built mobile-first, tested on real devices',
@@ -766,7 +912,7 @@ document.addEventListener('DOMContentLoaded', function () {
       's2.priceLabel': 'Pricing', 's2.priceFig': 'Per project', 's2.priceSub': 'quoted, not packaged',
       's2.priceNote': 'Every site is different, so every quote is too. Tell us what your business needs and we will scope it properly — no packages you have to squeeze into.',
 
-      'pr.eyebrow': '04 — How it works',
+      'pr.eyebrow': '05 — How it works',
       'pr.head': 'Talk first. Pay when you are ready.',
       'pr.1.l': 'Step one', 'pr.1.t': 'You Get in Touch',
       'pr.1.d': 'Send the form below with what you need. No payment, no commitment — just a conversation.',
@@ -775,7 +921,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'pr.3.l': 'Step three', 'pr.3.t': 'We Build and Ship',
       'pr.3.d': 'Once the invoice is settled we produce your card or build your site — and your customers start tapping.',
 
-      'faq.eyebrow': '05 — Questions', 'faq.head': 'Straight answers.',
+      'faq.eyebrow': '06 — Questions', 'faq.head': 'Straight answers.',
       'faq.1.q': 'How does the NFC card actually work?',
       'faq.1.a': 'A small chip inside the card stores your Google review link. When a customer holds their phone near the card, the phone reads the chip and opens that link straight away. No battery, no charging, no wear — it works the same on day one and year three.',
       'faq.2.q': 'Do customers need to download an app?',
@@ -785,7 +931,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'faq.4.q': 'Can I get the card and a website together?',
       'faq.4.a': 'Yes, and they work better as a pair — the card grows your reviews, the site turns the resulting traffic into booked work. Choose “Both” in the form and we will scope them as one project.',
 
-      'ct.eyebrow': '06 — Get started',
+      'ct.eyebrow': '07 — Get started',
       ctHead: 'Tell us what you <em class="em">need</em>.',
       'ct.lead': 'Fill this in and you will hear back within 24 hours — from the person who will do the work, not an autoresponder.',
       'ct.aside': 'No payment now. We confirm the details and the price with you first, then invoice by email.',
@@ -1155,7 +1301,29 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /* ══════════════════════════════════════════════════════════════════
-     ⑤  NAV + ACCORDION (no GSAP required)
+     ⑤  PRODUCT PHOTOS — graceful absence
+     ══════════════════════════════════════════════════════════════════
+     A product photo that has not been uploaded yet should not render as
+     a broken-image icon. Mark the slot instead: CSS then shows a hatched
+     placeholder printing the expected filename, which doubles as a note
+     to whoever still has to add it.
+
+     `complete && naturalWidth === 0` catches images that already failed
+     before this script ran — an error listener alone would miss those. */
+  document.querySelectorAll('.prod__media').forEach(function (media) {
+    const img = media.querySelector('img');
+    if (!img) { media.classList.add('is-empty'); return; }
+
+    function markEmpty() {
+      media.classList.add('is-empty');
+      img.remove();
+    }
+    if (img.complete && img.naturalWidth === 0) markEmpty();
+    else img.addEventListener('error', markEmpty, { once: true });
+  });
+
+  /* ══════════════════════════════════════════════════════════════════
+     ⑥  NAV + ACCORDION (no GSAP required)
      ══════════════════════════════════════════════════════════════════ */
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hasGsap = typeof window.gsap !== 'undefined';
@@ -1205,7 +1373,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ══════════════════════════════════════════════════════════════════
-     ⑥  MOTION
+     ⑦  MOTION
      ══════════════════════════════════════════════════════════════════ */
   gsap.registerPlugin(ScrollTrigger);
 
@@ -1258,10 +1426,19 @@ document.addEventListener('DOMContentLoaded', function () {
       .to(row.querySelector('.label'), { opacity: 1, duration: .6 }, .15);
   });
 
-  gsap.to('[data-stagger]', {
-    opacity: 1, y: 0, duration: .9, stagger: .08, ease: EASE,
-    scrollTrigger: Object.assign({ trigger: '.blist', start: 'top 78%' }, once),
-  });
+  /* Each staggered group needs its OWN trigger. A single tween over all
+     [data-stagger] elements fires on whichever trigger is named — so the
+     product tiles would have played while still far below the fold, and
+     the stagger would be spent on nothing. */
+  [['.blist', '.blist [data-stagger]'], ['.prods', '.prods [data-stagger]']]
+    .forEach(function (pair) {
+      const trigger = document.querySelector(pair[0]);
+      if (!trigger) return;
+      gsap.to(pair[1], {
+        opacity: 1, y: 0, duration: .9, stagger: .08, ease: EASE,
+        scrollTrigger: Object.assign({ trigger: trigger, start: 'top 78%' }, once),
+      });
+    });
 
   gsap.timeline({ scrollTrigger: Object.assign({ trigger: '.steps', start: 'top 76%' }, once), defaults: { ease: EASE } })
     .to('#axis', { scaleX: 1, duration: 1.2 })

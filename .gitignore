@@ -27,3 +27,15 @@ desktop.ini
 .vscode/
 .idea/
 *.swp
+
+# ── Unrelated projects sharing this parent folder ────────────
+# These are separate efforts that happen to live in the same
+# directory. They are not part of this site, and some contain their
+# own .git — which makes a bare `git add -A` abort outright.
+Pet_DNA_Lab_GDD.md
+Pet_DNA_Lab_Master_Implementation_Plan.md
+garden-assets/
+pet-dna-lab/
+roblox-7days/
+roblox-dont-let-it-in/
+roblox-lobby/

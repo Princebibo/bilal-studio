@@ -66,8 +66,11 @@ validates its config at boot and refuses to start if anything is missing.
 - **i18n:** French is the source of truth in the HTML; English lives in a
   dictionary and swaps via `data-i18n` keys. `<option value>` attributes stay
   English in both languages so submitted data is stable.
-- **Design constraint:** the page uses no images by design. A single accent
-  colour appears exactly six times.
+- **Product photos** live in `images/` — see [`images/README.md`](images/README.md)
+  for the exact filenames and sizing. A missing photo renders as a labelled
+  placeholder, never a broken-image icon.
+- **Design constraint:** apart from product photography, every visual is
+  authored SVG, CSS and type. A single accent colour appears exactly six times.
 
 ## Licence
 
