@@ -635,7 +635,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
     </ul>
 
     <div class="prods__foot" data-fade>
-      <p data-i18n="pd.foot">Tous les articles sont personnalisés avec vos informations et livrés programmés. Dites-nous ce qu'il vous faut et nous confirmons le prix exact.</p>
+      <p data-i18n="pd.foot">Tous les articles sont personnalisés avec vos informations et livrés programmés. Comptez 3 à 4 semaines pour la fabrication et la livraison. Dites-nous ce qu'il vous faut et nous confirmons le prix exact.</p>
       <a href="#contact" class="tlink" data-i18n="pd.cta">Demander un prix&nbsp;&rarr;</a>
     </div>
   </div>
@@ -650,6 +650,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
       <p class="lead" data-i18n="s2.body">Des sites modernes et sur mesure, conçus pour transformer vos visiteurs en clients et stimuler votre croissance locale.</p>
 
       <ul class="specs">
+        <li><span class="k" data-i18n="s2.k0">Livraison</span><span class="v" data-i18n="s2.v0">En ligne en 48 à 72 heures</span></li>
         <li><span class="k" data-i18n="s2.k1">Responsive</span><span class="v" data-i18n="s2.v1">Conçu mobile d'abord, testé sur de vrais appareils</span></li>
         <li><span class="k" data-i18n="s2.k2">Performance</span><span class="v" data-i18n="s2.v2">Optimisé pour les Core Web Vitals</span></li>
         <li><span class="k" data-i18n="s2.k3">SEO local</span><span class="v" data-i18n="s2.v3">Données structurées et fondations on-page</span></li>
@@ -753,7 +754,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
         <li data-step>
           <p class="label" data-i18n="pr.3.l">Étape trois</p>
           <h3 data-i18n="pr.3.t">On produit et on livre</h3>
-          <p data-i18n="pr.3.d">Une fois la facture réglée, nous fabriquons votre carte ou créons votre site — et vos clients commencent à scanner.</p>
+          <p data-i18n="pr.3.d">Une fois la facture réglée, votre site est en ligne sous 48 à 72 heures et vos cartes arrivent sous 3 à 4 semaines.</p>
         </li>
       </ol>
     </div>
@@ -818,6 +819,16 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
         </button>
         <div class="faq__a" id="a5" role="region" aria-labelledby="q5">
           <p data-i18n="faq.5.a">Les trois formules comprennent l'hébergement, les mises à jour de sécurité et les sauvegardes automatiques. Ce qui change, c'est le nombre de modifications incluses&nbsp;: 2 par mois à 65&nbsp;$, 4 par mois à 85&nbsp;$, ou 4 par semaine à 120&nbsp;$. Le nom de domaine est facturé séparément, dès 50&nbsp;$ par an. Tout est confirmé par écrit avant que le travail commence.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false" aria-controls="a6" id="q6">
+          <span data-i18n="faq.6.q">Combien de temps faut-il&nbsp;?</span>
+          <span class="faq__ico" aria-hidden="true"></span>
+        </button>
+        <div class="faq__a" id="a6" role="region" aria-labelledby="q6">
+          <p data-i18n="faq.6.a">Votre site est en ligne en 48 à 72 heures, à partir du moment où nous avons vos textes, vos photos et vos accès. Les cartes et présentoirs sont personnalisés puis fabriqués&nbsp;: comptez 3 à 4 semaines pour la livraison. Si vous prenez les deux, votre site tourne bien avant l'arrivée des cartes.</p>
         </div>
       </div>
     </div>
@@ -1026,12 +1037,13 @@ document.addEventListener('DOMContentLoaded', function () {
       'pd.4.n': 'Counter Sign', 'pd.4.p': '$45', 'pd.4.d': 'Large format, tap-here NFC zone',
       'pd.5.n': 'NFC Fabric Wristband', 'pd.5.p': '$25', 'pd.5.d': 'Adjustable fabric, water-resistant',
       'pd.6.n': 'Kids Safety Wristband', 'pd.6.p': '$25', 'pd.6.d': 'Emergency contact in one tap',
-      'pd.foot': 'Every item is personalised with your details and arrives programmed. Tell us what you need and we will confirm the exact price.',
+      'pd.foot': 'Every item is personalised with your details and arrives programmed. Allow 3 to 4 weeks for production and delivery. Tell us what you need and we will confirm the exact price.',
       'pd.cta': 'Ask for a price →',
 
       's2.eyebrow': '04 — Service two',
       's2.head': 'Professional Web Design',
       's2.body': 'Custom, modern websites built to convert visitors into paying clients and drive local growth.',
+      's2.k0': 'Delivery', 's2.v0': 'Live in 48 to 72 hours',
       's2.k1': 'Responsive', 's2.v1': 'Built mobile-first, tested on real devices',
       's2.k2': 'Speed', 's2.v2': 'Engineered to pass Core Web Vitals',
       's2.k3': 'Local SEO', 's2.v3': 'Structured data and on-page foundations',
@@ -1065,7 +1077,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'pr.2.l': 'Step two', 'pr.2.t': 'We Agree the Details',
       'pr.2.d': 'We reply within 24 hours, confirm exactly what you are getting and what it costs, then send an invoice by email.',
       'pr.3.l': 'Step three', 'pr.3.t': 'We Build and Ship',
-      'pr.3.d': 'Once the invoice is settled we produce your card or build your site — and your customers start tapping.',
+      'pr.3.d': 'Once the invoice is settled, your site goes live within 48 to 72 hours and your cards arrive within 3 to 4 weeks.',
 
       'faq.eyebrow': '06 — Questions', 'faq.head': 'Straight answers.',
       'faq.1.q': 'How does the NFC card actually work?',
@@ -1079,6 +1091,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       'faq.5.q': 'What does the monthly fee cover?',
       'faq.5.a': 'All three plans include hosting, security updates and automatic backups. What changes is how many content changes are included: 2 a month at $65, 4 a month at $85, or 4 a week at $120. The domain name is billed separately, from $50 a year. Everything is confirmed in writing before any work begins.',
+
+      'faq.6.q': 'How long does it take?',
+      'faq.6.a': 'Your site is live in 48 to 72 hours, counted from the moment we have your text, your photos and your access. Cards and stands are personalised then manufactured: allow 3 to 4 weeks for delivery. If you take both, your site is running long before the cards arrive.',
 
       'ct.eyebrow': '07 — Get started',
       ctHead: 'Tell us what you <em class="em">need</em>.',
