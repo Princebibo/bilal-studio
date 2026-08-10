@@ -272,6 +272,21 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
   display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:baseline;justify-content:space-between}
 .prods__foot p{font-size:.9375rem;color:var(--ink-soft);max-width:52ch}
 
+/* ─────────────────────────────  WORK / CLIENTS  ─────────────────────────
+   No logos and no screenshots: inventing either would be worse than the
+   restraint. Named clients set in the display face carry the credibility
+   on their own. */
+.work__head{grid-column:1/span 7;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.work{grid-column:1/span 12;display:grid;grid-template-columns:repeat(2,1fr);
+  gap:0 clamp(1.5rem,4vw,3.5rem)}
+.work li{padding-top:clamp(1.5rem,3vw,2rem);border-top:1px solid var(--rule)}
+.work__tag{display:block;margin-bottom:1rem}
+.work h3{margin-bottom:.625rem;font-size:clamp(1.5rem,2.6vw,2rem);letter-spacing:-.025em}
+.work p{color:var(--ink-soft);font-size:.9375rem;line-height:1.6;max-width:38ch}
+.work__foot{grid-column:1/span 12;margin-top:clamp(2.5rem,5vw,3.5rem);
+  padding-top:1.5rem;border-top:1px solid var(--rule);
+  font-size:.9375rem;color:var(--ink-soft)}
+
 /* ─────────────────────────────  PROCESS  ───────────────────────────── */
 .steps__head{grid-column:1/span 7;margin-bottom:clamp(3.5rem,7vw,5.5rem)}
 .steps{grid-column:1/span 12;position:relative}
@@ -364,7 +379,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
   /* .plans must stay last once the flipped columns are reordered. */
   .plans{order:3;grid-column:1/span 12}
   .plans__grid{grid-template-columns:repeat(3,1fr)}
-  .benefits__head,.steps__head,.faq__head,.faq__list,.contact__head,.form,.prod__head{grid-column:1/span 12}
+  .benefits__head,.steps__head,.faq__head,.faq__list,.contact__head,.form,.prod__head,.work__head{grid-column:1/span 12}
   .prods{grid-template-columns:repeat(2,1fr)}
   .faq__head,.contact__head{margin-bottom:clamp(2.5rem,5vw,3.5rem)}
   .foot__grid{grid-template-columns:1fr 1fr}
@@ -386,6 +401,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
   .specs li{flex-direction:column;gap:.35rem}
   .specs .v{text-align:left}
   .frow{grid-template-columns:1fr}
+  .work{grid-template-columns:1fr;gap:2.5rem 0}
   .plans__grid{grid-template-columns:1fr;gap:2rem}
   .plan__badge{right:auto;left:clamp(1.5rem,3vw,2rem)}
   .foot__grid{grid-template-columns:1fr;gap:2.5rem}
@@ -730,11 +746,38 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 
 <hr class="hr">
 
-<!-- ⑦  PROCESS -->
+<!-- ⑦  WORK -->
+<section id="work" class="band">
+  <div class="wrap grid">
+    <div class="work__head">
+      <div class="eyebrow"><span class="label" data-i18n="wk.eyebrow">05 — Références</span><span class="rule"></span></div>
+      <h2 data-i18n="wk.head">Des sites déjà en ligne.</h2>
+    </div>
+
+    <ul class="work">
+      <li data-stagger>
+        <span class="label work__tag" data-i18n="wk.1.t">Association</span>
+        <h3 data-i18n="wk.1.n">ACMC</h3>
+        <p data-i18n="wk.1.d">Site vitrine pour une association italienne — présentation, activités et contact.</p>
+      </li>
+      <li data-stagger>
+        <span class="label work__tag" data-i18n="wk.2.t">Festival</span>
+        <h3 data-i18n="wk.2.n">EFCF</h3>
+        <p data-i18n="wk.2.d">Festival du Film et du Cinéma Égyptien au Canada — programme, séances et informations pratiques.</p>
+      </li>
+    </ul>
+
+    <p class="work__foot" data-fade data-i18n="wk.foot">Vous voulez voir le résultat en ligne&nbsp;? Demandez-nous les liens, nous vous les envoyons.</p>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ⑧  PROCESS -->
 <section id="process">
   <div class="wrap grid">
     <div class="steps__head">
-      <div class="eyebrow"><span class="label" data-i18n="pr.eyebrow">05 — Comment ça marche</span><span class="rule"></span></div>
+      <div class="eyebrow"><span class="label" data-i18n="pr.eyebrow">06 — Comment ça marche</span><span class="rule"></span></div>
       <h2 data-i18n="pr.head">On discute d'abord. Vous payez quand vous êtes prêt.</h2>
     </div>
 
@@ -763,11 +806,11 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 
 <hr class="hr">
 
-<!-- ⑧  FAQ -->
+<!-- ⑨  FAQ -->
 <section id="faq">
   <div class="wrap grid">
     <div class="faq__head">
-      <div class="eyebrow"><span class="label" data-i18n="faq.eyebrow">06 — Questions</span><span class="rule"></span></div>
+      <div class="eyebrow"><span class="label" data-i18n="faq.eyebrow">07 — Questions</span><span class="rule"></span></div>
       <h2 data-i18n="faq.head">Des réponses claires.</h2>
     </div>
 
@@ -835,11 +878,11 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
   </div>
 </section>
 
-<!-- ⑨  CONTACT -->
+<!-- ⑩  CONTACT -->
 <section id="contact" class="band">
   <div class="wrap grid">
     <div class="contact__head">
-      <div class="eyebrow"><span class="label" data-i18n="ct.eyebrow">07 — Commencer</span><span class="rule"></span></div>
+      <div class="eyebrow"><span class="label" data-i18n="ct.eyebrow">08 — Commencer</span><span class="rule"></span></div>
       <h2 id="ctHead">Dites-nous ce qu'il vous <em class="em">faut</em>.</h2>
       <p class="lead" data-i18n="ct.lead">Remplissez ceci et vous aurez une réponse sous 24 heures — de la personne qui fera le travail, pas d'un répondeur automatique.</p>
 
@@ -918,7 +961,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 
 </main>
 
-<!-- ⑩  FOOTER -->
+<!-- ⑪  FOOTER -->
 <footer class="foot">
   <div class="wrap">
     <div class="foot__grid">
@@ -1070,7 +1113,15 @@ document.addEventListener('DOMContentLoaded', function () {
       'pl.3.f3': 'For sites that change often',
       's2.priceNote': 'The price depends on how many pages you need and which features. We confirm the exact figure before starting — nothing is charged until you agree.',
 
-      'pr.eyebrow': '05 — How it works',
+      'wk.eyebrow': '05 — Selected work',
+      'wk.head': 'Sites already live.',
+      'wk.1.t': 'Association', 'wk.1.n': 'ACMC',
+      'wk.1.d': 'Brochure site for an Italian association — who they are, what they run, how to reach them.',
+      'wk.2.t': 'Festival', 'wk.2.n': 'EFCF',
+      'wk.2.d': 'Festival du Film et du Cinéma Égyptien au Canada — programme, screenings and visitor information.',
+      'wk.foot': 'Want to see them live? Ask and we will send the links.',
+
+      'pr.eyebrow': '06 — How it works',
       'pr.head': 'Talk first. Pay when you are ready.',
       'pr.1.l': 'Step one', 'pr.1.t': 'You Get in Touch',
       'pr.1.d': 'Send the form below with what you need. No payment, no commitment — just a conversation.',
@@ -1079,7 +1130,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'pr.3.l': 'Step three', 'pr.3.t': 'We Build and Ship',
       'pr.3.d': 'Once the invoice is settled, your site goes live within 48 to 72 hours and your cards arrive within 3 to 4 weeks.',
 
-      'faq.eyebrow': '06 — Questions', 'faq.head': 'Straight answers.',
+      'faq.eyebrow': '07 — Questions', 'faq.head': 'Straight answers.',
       'faq.1.q': 'How does the NFC card actually work?',
       'faq.1.a': 'A small chip inside the card stores your Google review link. When a customer holds their phone near the card, the phone reads the chip and opens that link straight away. No battery, no charging, no wear — it works the same on day one and year three.',
       'faq.2.q': 'Do customers need to download an app?',
@@ -1095,7 +1146,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'faq.6.q': 'How long does it take?',
       'faq.6.a': 'Your site is live in 48 to 72 hours, counted from the moment we have your text, your photos and your access. Cards and stands are personalised then manufactured: allow 3 to 4 weeks for delivery. If you take both, your site is running long before the cards arrive.',
 
-      'ct.eyebrow': '07 — Get started',
+      'ct.eyebrow': '08 — Get started',
       ctHead: 'Tell us what you <em class="em">need</em>.',
       'ct.lead': 'Fill this in and you will hear back within 24 hours — from the person who will do the work, not an autoresponder.',
       'ct.aside': 'No payment now. We confirm the details and the price with you first, then invoice by email.',
