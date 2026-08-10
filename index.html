@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bilal Studio — Cartes NFC d'avis Google & sites sur mesure</title>
-<meta name="description" id="metaDesc" content="Développez votre entreprise plus vite avec une carte NFC d'avis Google et un site performant. Un geste, plus d'avis, plus de clients. Cartes 15–45 $, achat unique.">
+<meta name="description" id="metaDesc" content="Développez votre entreprise plus vite avec une carte NFC d'avis Google et un site performant. Un geste, plus d'avis, plus de clients. Cartes 15–45 $, sites dès 350 $.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -186,6 +186,15 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
   font-variant-numeric:tabular-nums;display:block;margin-bottom:.625rem}
 .price__sub{font-style:italic;color:var(--ink-faint);font-size:.9375rem}
 .price__note{margin-top:1.25rem;font-size:.875rem;color:var(--ink-soft);line-height:1.55;max-width:36ch}
+
+/* Recurring / add-on costs, listed rather than buried in the note. A
+   monthly fee a visitor discovers late is a lost sale; state it plainly. */
+.price__lines{margin-top:1.25rem;border-top:1px solid var(--rule)}
+.price__lines li{display:flex;justify-content:space-between;align-items:baseline;
+  gap:1.25rem;padding:.6875rem 0;border-bottom:1px solid var(--rule)}
+.price__lines .k{font-size:.875rem;color:var(--ink-soft)}
+.price__lines .v{font-size:.875rem;font-weight:500;white-space:nowrap;
+  font-variant-numeric:tabular-nums}
 
 /* ─────────────────────────────  PRODUCTS  ───────────────────────────── */
 .prod__head{grid-column:1/span 7;margin-bottom:clamp(3rem,6vw,4.5rem)}
@@ -389,11 +398,16 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
     <div class="hero__copy">
       <p class="label" data-fade data-i18n="hero.eyebrow" style="margin-bottom:clamp(1.5rem,3vw,2rem)">Un seul geste. Plus d'avis. Plus de clients.</p>
 
+      <!-- Five line slots. French needs all five; English fills four and
+           the last is emptied and hidden by applyLang(). The <span> inside
+           each .line must survive a language swap — it carries the GSAP
+           mask transform — so only its innerHTML is ever replaced. -->
       <h1 id="heroTitle">
         <span class="line"><span>Développez votre</span></span>
         <span class="line"><span>entreprise <em class="em">plus vite</em></span></span>
         <span class="line"><span>avec une carte NFC</span></span>
         <span class="line"><span>d'avis Google</span></span>
+        <span class="line"><span>et un site sur mesure</span></span>
       </h1>
 
       <p class="lead" data-fade data-i18n="hero.sub">Vous voulez plus d'avis Google, plus de trafic sur votre site et une meilleure visibilité pour votre entreprise&nbsp;? Avec une carte NFC d'avis Google, vos clients laissent un avis instantanément d'un simple geste — sans recherche, sans complication.</p>
@@ -403,7 +417,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
         <a href="#services" class="tlink" data-i18n="hero.cta2">Voir nos services</a>
       </div>
 
-      <p class="label hero__note" data-fade data-i18n="hero.note">Cartes 15–45&nbsp;$ &middot; Sites sur devis &middot; Rien à payer d'avance</p>
+      <p class="label hero__note" data-fade data-i18n="hero.note">Cartes 15–45&nbsp;$ &middot; Sites dès 350&nbsp;$ &middot; Rien à payer d'avance</p>
     </div>
 
     <div class="hero__art" aria-hidden="true">
@@ -602,10 +616,22 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 
     <aside class="svc__aside">
       <div class="price" data-fade>
-        <p class="label" data-i18n="s2.priceLabel">Tarif</p>
-        <span class="price__fig" data-i18n="s2.priceFig">Sur devis</span>
-        <p class="price__sub" data-i18n="s2.priceSub">chiffré, pas de forfait</p>
-        <p class="price__note" data-i18n="s2.priceNote">Chaque site est différent, donc chaque devis aussi. Dites-nous ce dont votre entreprise a besoin et nous le chiffrerons correctement — sans forfait dans lequel il faut se contorsionner.</p>
+        <p class="label" data-i18n="s2.priceLabel">Création du site</p>
+        <span class="price__fig" data-i18n="s2.priceFig">350–1 500&nbsp;$</span>
+        <p class="price__sub" data-i18n="s2.priceSub">achat unique, selon le projet</p>
+
+        <ul class="price__lines">
+          <li>
+            <span class="k" data-i18n="s2.line1k">Hébergement et maintenance</span>
+            <span class="v" data-i18n="s2.line1v">dès 45&nbsp;$/mois</span>
+          </li>
+          <li>
+            <span class="k" data-i18n="s2.line2k">Nom de domaine</span>
+            <span class="v" data-i18n="s2.line2v">dès 55&nbsp;$ une fois</span>
+          </li>
+        </ul>
+
+        <p class="price__note" data-i18n="s2.priceNote">Le prix dépend du nombre de pages et des fonctionnalités. Nous confirmons le montant exact avant de commencer — rien n'est prélevé avant votre accord.</p>
       </div>
     </aside>
   </div>
@@ -692,6 +718,16 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
         </button>
         <div class="faq__a" id="a4" role="region" aria-labelledby="q4">
           <p data-i18n="faq.4.a">Oui, et les deux fonctionnent mieux ensemble&nbsp;: la carte fait grimper vos avis, le site transforme le trafic obtenu en travail signé. Choisissez «&nbsp;Produit + site web&nbsp;» dans le formulaire et nous chiffrerons l'ensemble comme un seul projet.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false" aria-controls="a5" id="q5">
+          <span data-i18n="faq.5.q">Que comprend le forfait mensuel&nbsp;?</span>
+          <span class="faq__ico" aria-hidden="true"></span>
+        </button>
+        <div class="faq__a" id="a5" role="region" aria-labelledby="q5">
+          <p data-i18n="faq.5.a">Le forfait mensuel couvre l'hébergement de votre site, les mises à jour de sécurité, les sauvegardes et les petites modifications de contenu. Il démarre à 45&nbsp;$ par mois selon la taille du site. Le nom de domaine est facturé séparément, dès 55&nbsp;$. Tout est confirmé par écrit avant que le travail commence.</p>
         </div>
       </div>
     </div>
@@ -807,7 +843,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
       </div>
     </div>
     <div class="foot__base">
-      <p data-i18n="ft.base">Prix unique. Aucun abonnement.</p>
+      <p data-i18n="ft.base">Prix clairs, confirmés avant de commencer.</p>
       <p>&copy; 2026 Bilal Studio</p>
     </div>
   </div>
@@ -854,7 +890,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const I18N = {
     en: {
       docTitle: "Bilal Studio — NFC Google Review Cards & Custom Websites",
-      docDesc: "Grow your business faster with a custom NFC Google Review Card and a high-performance website. One tap, more reviews, more customers. Cards $15–$45, one-time.",
+      docDesc: "Grow your business faster with a custom NFC Google Review Card and a high-performance website. One tap, more reviews, more customers. Cards $15–$45, websites from $350.",
       skip: 'Skip to content',
 
       'nav.services': 'Services', 'nav.products': 'Products', 'nav.how': 'How It Works', 'nav.faq': 'FAQ',
@@ -869,7 +905,7 @@ document.addEventListener('DOMContentLoaded', function () {
       ],
       'hero.sub': 'Want more Google reviews, higher website traffic, and better visibility for your business? With an NFC Google Review Card, your customers can leave a Google review instantly with just one tap—no searching, no hassle.',
       'hero.cta1': 'Get in touch', 'hero.cta2': 'See what we do',
-      'hero.note': 'Cards $15–$45 · Websites quoted per project · Nothing to pay upfront',
+      'hero.note': 'Cards $15–$45 · Websites from $350 · Nothing to pay upfront',
 
       'ben.eyebrow': '01 — Why it works',
       'ben.head': 'Reviews decide who gets found first.',
@@ -911,8 +947,10 @@ document.addEventListener('DOMContentLoaded', function () {
       's2.k3': 'Local SEO', 's2.v3': 'Structured data and on-page foundations',
       's2.k4': 'Conversion', 's2.v4': 'Layout built around one clear next step',
       's2.k5': 'Integration', 's2.v5': 'Connected to your Google Business Profile',
-      's2.priceLabel': 'Pricing', 's2.priceFig': 'Per project', 's2.priceSub': 'quoted, not packaged',
-      's2.priceNote': 'Every site is different, so every quote is too. Tell us what your business needs and we will scope it properly — no packages you have to squeeze into.',
+      's2.priceLabel': 'Website build', 's2.priceFig': '$350–$1,500', 's2.priceSub': 'one-time, depending on the project',
+      's2.line1k': 'Hosting and maintenance', 's2.line1v': 'from $45/month',
+      's2.line2k': 'Domain name', 's2.line2v': 'from $55 once',
+      's2.priceNote': 'The price depends on how many pages you need and which features. We confirm the exact figure before starting — nothing is charged until you agree.',
 
       'pr.eyebrow': '05 — How it works',
       'pr.head': 'Talk first. Pay when you are ready.',
@@ -932,6 +970,9 @@ document.addEventListener('DOMContentLoaded', function () {
       'faq.3.a': 'Not on this page. Get in touch first — once we have agreed exactly what you need and what it costs, we send a PayPal invoice by email. You pay from that, and only then do we start production. Nothing is charged before you have spoken to a person.',
       'faq.4.q': 'Can I get the card and a website together?',
       'faq.4.a': 'Yes, and they work better as a pair — the card grows your reviews, the site turns the resulting traffic into booked work. Choose “Product + Website” in the form and we will scope them as one project.',
+
+      'faq.5.q': 'What does the monthly fee cover?',
+      'faq.5.a': 'The monthly fee covers hosting, security updates, backups and small content changes. It starts at $45 a month depending on the size of the site. The domain name is billed separately, from $55. Everything is confirmed in writing before any work begins.',
 
       'ct.eyebrow': '07 — Get started',
       ctHead: 'Tell us what you <em class="em">need</em>.',
@@ -962,7 +1003,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'ft.explore': 'Explore', 'ft.l1': 'Review Cards', 'ft.l2': 'Web Design',
       'ft.contact': 'Contact',
       'ft.indep': 'Independent studio. You deal directly with the person building your card and your site.',
-      'ft.base': 'One-time pricing. No subscriptions.',
+      'ft.base': 'Clear pricing, confirmed before we start.',
     },
   };
 
@@ -1039,9 +1080,15 @@ document.addEventListener('DOMContentLoaded', function () {
     /* The hero H1 keeps its .line > span elements — only their innerHTML
        changes. That matters: the spans carry the GSAP mask transform, so
        replacing them outright would break an already-played reveal. */
+    /* Languages need different numbers of lines — French runs longer than
+       English and needs five where English needs four. Unused slots are
+       emptied AND hidden, otherwise a leftover French line would survive
+       under the English headline. */
     const lines = dict.heroLines || FR.heroLines;
     heroLineSpans.forEach(function (s, i) {
-      if (lines[i] !== undefined) s.innerHTML = lines[i];
+      const html = (lines[i] !== undefined) ? lines[i] : '';
+      s.innerHTML = html;
+      s.parentElement.style.display = html ? '' : 'none';
     });
     ctHead.innerHTML = dict.ctHead || FR.ctHead;
 
