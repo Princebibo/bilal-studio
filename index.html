@@ -196,6 +196,45 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 .price__lines .v{font-size:.875rem;font-weight:500;white-space:nowrap;
   font-variant-numeric:tabular-nums}
 
+/* ── Monthly plans ───────────────────────────────────────────────────
+   The only cards on the page. A pricing table is the one place they earn
+   their keep: three parallel options need three visibly parallel boxes.
+   The recommended tier is marked with an INK badge, not the accent — the
+   accent budget is spent on the two conversion moments, and a dark badge
+   on warm paper is emphatic enough. */
+.plans{grid-column:1/span 12;margin-top:clamp(3.5rem,7vw,5rem);
+  padding-top:clamp(2rem,4vw,2.5rem);border-top:1px solid var(--rule)}
+.plans__head{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;align-items:baseline;
+  justify-content:space-between;margin-bottom:clamp(2.25rem,4vw,3rem)}
+.plans__head h3{font-size:var(--fs-h3)}
+.plans__head p{font-size:.9375rem;color:var(--ink-soft)}
+.plans__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2vw,1.5rem)}
+
+.plan{position:relative;display:flex;flex-direction:column;
+  padding:clamp(1.5rem,3vw,2rem);border:1px solid var(--rule);border-radius:4px;
+  transition:border-color .35s var(--ease)}
+.plan:hover{border-color:var(--ink-faint)}
+.plan--best{border-color:var(--ink)}
+.plan--best:hover{border-color:var(--ink)}
+.plan__badge{position:absolute;top:0;right:clamp(1.5rem,3vw,2rem);
+  transform:translateY(-50%);background:var(--ink);color:var(--paper);
+  font:500 .6875rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;
+  padding:.4375rem .6875rem;border-radius:2px;white-space:nowrap}
+.plan__name{font-family:var(--display);font-weight:500;font-size:1.125rem;
+  letter-spacing:-.015em;margin-bottom:1rem}
+.plan__price{font-family:var(--display);font-weight:600;
+  font-size:clamp(1.875rem,3.2vw,2.5rem);line-height:1;letter-spacing:-.035em;
+  font-variant-numeric:tabular-nums}
+.plan__per{font-size:.875rem;color:var(--ink-faint);margin-top:.4375rem}
+.plan__list{margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--rule);
+  display:flex;flex-direction:column;gap:.6875rem}
+.plan__list li{position:relative;padding-left:1.125rem;font-size:.9375rem;
+  color:var(--ink-soft);line-height:1.5}
+.plan__list li::before{content:"";position:absolute;left:0;top:.62em;
+  width:7px;height:1px;background:var(--ink-faint)}
+.plan__list li.is-key{color:var(--ink);font-weight:500}
+.plan__list li.is-key::before{background:var(--ink)}
+
 /* ─────────────────────────────  PRODUCTS  ───────────────────────────── */
 .prod__head{grid-column:1/span 7;margin-bottom:clamp(3rem,6vw,4.5rem)}
 .prods{grid-column:1/span 12;display:grid;grid-template-columns:repeat(3,1fr);
@@ -322,6 +361,9 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
   .svc__copy,.svc__aside,.svc--flip .svc__copy,.svc--flip .svc__aside{grid-column:1/span 12}
   .svc__aside{margin-top:clamp(2.5rem,5vw,3.5rem)}
   .svc--flip .svc__copy{order:1}.svc--flip .svc__aside{order:2}
+  /* .plans must stay last once the flipped columns are reordered. */
+  .plans{order:3;grid-column:1/span 12}
+  .plans__grid{grid-template-columns:repeat(3,1fr)}
   .benefits__head,.steps__head,.faq__head,.faq__list,.contact__head,.form,.prod__head{grid-column:1/span 12}
   .prods{grid-template-columns:repeat(2,1fr)}
   .faq__head,.contact__head{margin-bottom:clamp(2.5rem,5vw,3.5rem)}
@@ -344,6 +386,8 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
   .specs li{flex-direction:column;gap:.35rem}
   .specs .v{text-align:left}
   .frow{grid-template-columns:1fr}
+  .plans__grid{grid-template-columns:1fr;gap:2rem}
+  .plan__badge{right:auto;left:clamp(1.5rem,3vw,2rem)}
   .foot__grid{grid-template-columns:1fr;gap:2.5rem}
 }
 
@@ -622,18 +666,64 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 
         <ul class="price__lines">
           <li>
-            <span class="k" data-i18n="s2.line1k">Hébergement et maintenance</span>
-            <span class="v" data-i18n="s2.line1v">dès 45&nbsp;$/mois</span>
+            <span class="k" data-i18n="s2.line1k">Nom de domaine</span>
+            <span class="v" data-i18n="s2.line1v">dès 50&nbsp;$/an</span>
           </li>
           <li>
-            <span class="k" data-i18n="s2.line2k">Nom de domaine</span>
-            <span class="v" data-i18n="s2.line2v">dès 55&nbsp;$ une fois</span>
+            <span class="k" data-i18n="s2.line2k">Suivi mensuel</span>
+            <span class="v" data-i18n="s2.line2v">dès 65&nbsp;$/mois</span>
           </li>
         </ul>
 
         <p class="price__note" data-i18n="s2.priceNote">Le prix dépend du nombre de pages et des fonctionnalités. Nous confirmons le montant exact avant de commencer — rien n'est prélevé avant votre accord.</p>
       </div>
     </aside>
+
+    <!-- Monthly plans -->
+    <div class="plans">
+      <div class="plans__head">
+        <h3 data-i18n="pl.head">Suivi mensuel</h3>
+        <p data-i18n="pl.sub">Hébergement, sécurité et sauvegardes inclus dans les trois formules.</p>
+      </div>
+
+      <div class="plans__grid">
+        <div class="plan" data-stagger>
+          <p class="plan__name" data-i18n="pl.1.n">Essentiel</p>
+          <span class="plan__price" data-i18n="pl.1.p">65&nbsp;$</span>
+          <p class="plan__per" data-i18n="pl.per">par mois</p>
+          <ul class="plan__list">
+            <li class="is-key" data-i18n="pl.1.f1">2 modifications par mois</li>
+            <li data-i18n="pl.f.host">Hébergement inclus</li>
+            <li data-i18n="pl.f.sec">Mises à jour de sécurité</li>
+            <li data-i18n="pl.f.bak">Sauvegardes automatiques</li>
+          </ul>
+        </div>
+
+        <div class="plan plan--best" data-stagger>
+          <span class="plan__badge" data-i18n="pl.best">Le plus choisi</span>
+          <p class="plan__name" data-i18n="pl.2.n">Croissance</p>
+          <span class="plan__price" data-i18n="pl.2.p">85&nbsp;$</span>
+          <p class="plan__per" data-i18n="pl.per">par mois</p>
+          <ul class="plan__list">
+            <li class="is-key" data-i18n="pl.2.f1">4 modifications par mois</li>
+            <li data-i18n="pl.2.f2">Tout ce que comprend Essentiel</li>
+            <li data-i18n="pl.2.f3">Réponse prioritaire</li>
+            <li data-i18n="pl.2.f4">Le bon choix pour la plupart des commerces</li>
+          </ul>
+        </div>
+
+        <div class="plan" data-stagger>
+          <p class="plan__name" data-i18n="pl.3.n">Intensif</p>
+          <span class="plan__price" data-i18n="pl.3.p">120&nbsp;$</span>
+          <p class="plan__per" data-i18n="pl.per">par mois</p>
+          <ul class="plan__list">
+            <li class="is-key" data-i18n="pl.3.f1">4 modifications par semaine</li>
+            <li data-i18n="pl.3.f2">Tout ce que comprend Croissance</li>
+            <li data-i18n="pl.3.f3">Pour les sites qui changent souvent</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -727,7 +817,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
           <span class="faq__ico" aria-hidden="true"></span>
         </button>
         <div class="faq__a" id="a5" role="region" aria-labelledby="q5">
-          <p data-i18n="faq.5.a">Le forfait mensuel couvre l'hébergement de votre site, les mises à jour de sécurité, les sauvegardes et les petites modifications de contenu. Il démarre à 45&nbsp;$ par mois selon la taille du site. Le nom de domaine est facturé séparément, dès 55&nbsp;$. Tout est confirmé par écrit avant que le travail commence.</p>
+          <p data-i18n="faq.5.a">Les trois formules comprennent l'hébergement, les mises à jour de sécurité et les sauvegardes automatiques. Ce qui change, c'est le nombre de modifications incluses&nbsp;: 2 par mois à 65&nbsp;$, 4 par mois à 85&nbsp;$, ou 4 par semaine à 120&nbsp;$. Le nom de domaine est facturé séparément, dès 50&nbsp;$ par an. Tout est confirmé par écrit avant que le travail commence.</p>
         </div>
       </div>
     </div>
@@ -948,8 +1038,24 @@ document.addEventListener('DOMContentLoaded', function () {
       's2.k4': 'Conversion', 's2.v4': 'Layout built around one clear next step',
       's2.k5': 'Integration', 's2.v5': 'Connected to your Google Business Profile',
       's2.priceLabel': 'Website build', 's2.priceFig': '$350–$1,500', 's2.priceSub': 'one-time, depending on the project',
-      's2.line1k': 'Hosting and maintenance', 's2.line1v': 'from $45/month',
-      's2.line2k': 'Domain name', 's2.line2v': 'from $55 once',
+      's2.line1k': 'Domain name', 's2.line1v': 'from $50/year',
+      's2.line2k': 'Monthly care', 's2.line2v': 'from $65/month',
+
+      'pl.head': 'Monthly care',
+      'pl.sub': 'Hosting, security and backups are included in all three plans.',
+      'pl.per': 'per month',
+      'pl.best': 'Most chosen',
+      'pl.f.host': 'Hosting included',
+      'pl.f.sec': 'Security updates',
+      'pl.f.bak': 'Automatic backups',
+      'pl.1.n': 'Essential', 'pl.1.p': '$65', 'pl.1.f1': '2 changes per month',
+      'pl.2.n': 'Growth', 'pl.2.p': '$85', 'pl.2.f1': '4 changes per month',
+      'pl.2.f2': 'Everything in Essential',
+      'pl.2.f3': 'Priority response',
+      'pl.2.f4': 'The right fit for most local businesses',
+      'pl.3.n': 'Intensive', 'pl.3.p': '$120', 'pl.3.f1': '4 changes per week',
+      'pl.3.f2': 'Everything in Growth',
+      'pl.3.f3': 'For sites that change often',
       's2.priceNote': 'The price depends on how many pages you need and which features. We confirm the exact figure before starting — nothing is charged until you agree.',
 
       'pr.eyebrow': '05 — How it works',
@@ -972,7 +1078,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'faq.4.a': 'Yes, and they work better as a pair — the card grows your reviews, the site turns the resulting traffic into booked work. Choose “Product + Website” in the form and we will scope them as one project.',
 
       'faq.5.q': 'What does the monthly fee cover?',
-      'faq.5.a': 'The monthly fee covers hosting, security updates, backups and small content changes. It starts at $45 a month depending on the size of the site. The domain name is billed separately, from $55. Everything is confirmed in writing before any work begins.',
+      'faq.5.a': 'All three plans include hosting, security updates and automatic backups. What changes is how many content changes are included: 2 a month at $65, 4 a month at $85, or 4 a week at $120. The domain name is billed separately, from $50 a year. Everything is confirmed in writing before any work begins.',
 
       'ct.eyebrow': '07 — Get started',
       ctHead: 'Tell us what you <em class="em">need</em>.',
