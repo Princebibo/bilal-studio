@@ -426,6 +426,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
       <nav class="nav__links" aria-label="Navigation">
         <a href="#services" data-i18n="nav.services">Services</a>
         <a href="#products" data-i18n="nav.products">Produits</a>
+        <a href="#tarifs" data-i18n="nav.pricing">Tarifs</a>
         <a href="#process" data-i18n="nav.how">Fonctionnement</a>
         <a href="#faq" data-i18n="nav.faq">FAQ</a>
         <a href="#contact" class="btn btn--ghost nav__cta"><span data-i18n="nav.cta">Nous contacter</span></a>
@@ -445,6 +446,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 <div class="sheet" id="sheet">
   <a href="#services" data-i18n="nav.services">Services</a>
   <a href="#products" data-i18n="nav.products">Produits</a>
+  <a href="#tarifs" data-i18n="nav.pricing">Tarifs</a>
   <a href="#process" data-i18n="nav.how">Fonctionnement</a>
   <a href="#faq" data-i18n="nav.faq">FAQ</a>
   <a href="#contact" data-i18n="nav.cta">Nous contacter</a>
@@ -697,7 +699,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
     </aside>
 
     <!-- Monthly plans -->
-    <div class="plans">
+    <div class="plans" id="tarifs">
       <div class="plans__head">
         <h3 data-i18n="pl.head">Suivi mensuel</h3>
         <p data-i18n="pl.sub">Hébergement, sécurité et sauvegardes inclus dans les trois formules.</p>
@@ -758,7 +760,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
       <li data-stagger>
         <span class="label work__tag" data-i18n="wk.1.t">Association</span>
         <h3 data-i18n="wk.1.n">ACMC</h3>
-        <p data-i18n="wk.1.d">Site vitrine pour une association italienne — présentation, activités et contact.</p>
+        <p data-i18n="wk.1.d">Site vitrine — présentation, activités et contact.</p>
       </li>
       <li data-stagger>
         <span class="label work__tag" data-i18n="wk.2.t">Festival</span>
@@ -1037,7 +1039,7 @@ document.addEventListener('DOMContentLoaded', function () {
       docDesc: "Grow your business faster with a custom NFC Google Review Card and a high-performance website. One tap, more reviews, more customers. Cards $15–$45, websites from $350.",
       skip: 'Skip to content',
 
-      'nav.services': 'Services', 'nav.products': 'Products', 'nav.how': 'How It Works', 'nav.faq': 'FAQ',
+      'nav.services': 'Services', 'nav.products': 'Products', 'nav.pricing': 'Pricing', 'nav.how': 'How It Works', 'nav.faq': 'FAQ',
       'nav.cta': 'Get in touch',
 
       'hero.eyebrow': 'One tap. More reviews. More customers.',
@@ -1116,7 +1118,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'wk.eyebrow': '05 — Selected work',
       'wk.head': 'Sites already live.',
       'wk.1.t': 'Association', 'wk.1.n': 'ACMC',
-      'wk.1.d': 'Brochure site for an Italian association — who they are, what they run, how to reach them.',
+      'wk.1.d': 'Brochure site — who they are, what they run, how to reach them.',
       'wk.2.t': 'Festival', 'wk.2.n': 'EFCF',
       'wk.2.d': 'Festival du Film et du Cinéma Égyptien au Canada — programme, screenings and visitor information.',
       'wk.foot': 'Want to see them live? Ask and we will send the links.',
@@ -1625,7 +1627,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   gsap.set('.line>span', { yPercent: 105 });
   gsap.set('[data-fade]', { opacity: 0, y: 16 });
-  gsap.set('[data-stagger]', { opacity: 0, y: 28 });
+  /* NOTE: [data-stagger] is deliberately NOT hidden here. Its initial state
+     is set per group, together with the tween that reveals it — see below. */
   gsap.set('[data-step]', { opacity: 0, y: 20 });
   gsap.set('.eyebrow .rule', { scaleX: 0 });
   gsap.set('.eyebrow .label', { opacity: 0 });
@@ -1648,19 +1651,99 @@ document.addEventListener('DOMContentLoaded', function () {
       .to(row.querySelector('.label'), { opacity: 1, duration: .6 }, .15);
   });
 
-  /* Each staggered group needs its OWN trigger. A single tween over all
-     [data-stagger] elements fires on whichever trigger is named — so the
-     product tiles would have played while still far below the fold, and
-     the stagger would be spent on nothing. */
-  [['.blist', '.blist [data-stagger]'], ['.prods', '.prods [data-stagger]']]
-    .forEach(function (pair) {
-      const trigger = document.querySelector(pair[0]);
-      if (!trigger) return;
-      gsap.to(pair[1], {
-        opacity: 1, y: 0, duration: .9, stagger: .08, ease: EASE,
-        scrollTrigger: Object.assign({ trigger: trigger, start: 'top 78%' }, once),
-      });
+  /* Each staggered group needs its OWN trigger — a single tween over every
+     [data-stagger] element fires on whichever trigger is named, so groups
+     further down the page would play while still far below the fold.
+
+     Groups are derived from the DOM (each set shares a parent) rather than
+     listed by selector. A hand-written list is a trap here: gsap.set()
+     above hides EVERY [data-stagger] element, so any group missing from
+     the list stays at opacity 0 permanently. That is exactly what happened
+     when the plans and references sections were added — and it is
+     invisible during development if the browser requests reduced motion,
+     because this whole block is skipped. Deriving the groups means adding
+     a new section cannot reintroduce it. */
+  const staggerGroups = new Map();
+  document.querySelectorAll('[data-stagger]').forEach(function (el) {
+    const parent = el.parentElement;
+    if (!parent) return;
+    if (!staggerGroups.has(parent)) staggerGroups.set(parent, []);
+    staggerGroups.get(parent).push(el);
+  });
+
+  /* Reveals run on IntersectionObserver, NOT ScrollTrigger.
+     ────────────────────────────────────────────────────────────────────
+     ScrollTrigger derives its own scroll position, and with Lenis owning
+     the scroll the two can disagree: a trigger reported isActive:true with
+     the element 200px inside the viewport while its tween sat at
+     progress 0 and never ticked — the pricing plans stayed invisible on a
+     live page. The other reveals on this page survived by luck of position.
+
+     IntersectionObserver asks the browser directly whether the element is
+     on screen, so there is no scroll bookkeeping to fall out of sync, and
+     it fires immediately for anything already visible at load (covering
+     reloads and deep links). ScrollTrigger keeps the jobs it is actually
+     good at here — scrubbed parallax and the drawn rules.
+
+     Hide and reveal are also created together: a group cannot be hidden
+     without the thing that brings it back. Content must fail visible. */
+  const pending = new Set();
+  staggerGroups.forEach(function (items, parent) {
+    gsap.set(items, { opacity: 0, y: 28 });
+    pending.add(parent);
+  });
+
+  /* Reveal when the group's top crosses into the viewport. Position is read
+     straight from getBoundingClientRect on each scroll tick — the browser's
+     own answer — rather than inferred from a scroll offset. */
+  function checkReveals() {
+    if (!pending.size) return;
+    const limit = window.innerHeight * 0.92;
+    pending.forEach(function (parent) {
+      if (parent.getBoundingClientRect().top < limit) {
+        gsap.to(staggerGroups.get(parent), {
+          opacity: 1, y: 0, duration: .9, stagger: .08, ease: EASE,
+        });
+        pending.delete(parent);
+      }
     });
+  }
+
+  /* Throttled by timestamp, NOT requestAnimationFrame. rAF does not fire in
+     a page the browser is not compositing (background tab, some embedded
+     viewers), and gating the decision on it means content can stay hidden
+     in exactly the environments nobody tests. */
+  let lastCheck = 0;
+  function queueReveals() {
+    const now = Date.now();
+    if (now - lastCheck < 80) return;
+    lastCheck = now;
+    checkReveals();
+  }
+
+  /* Lenis owns scrolling here, so its event is the reliable signal; native
+     scroll and resize are belt-and-braces. */
+  lenis.on('scroll', queueReveals);
+  window.addEventListener('scroll', queueReveals, { passive: true });
+  window.addEventListener('resize', queueReveals);
+
+  checkReveals();                       // whatever is on screen at load
+  setTimeout(checkReveals, 400);        // after fonts/images settle the layout
+  setTimeout(checkReveals, 1500);
+
+  /* Last line of defence, independent of GSAP entirely.
+     If the animation engine cannot run — its ticker is rAF-driven, the CDN
+     failed, a script error landed — a hidden element would never come back.
+     Losing the pricing to a broken animation is far worse than losing the
+     animation, so anything still hidden gets shown outright. */
+  setInterval(function () {
+    document.querySelectorAll('[data-stagger]').forEach(function (el) {
+      if (el.getBoundingClientRect().top >= window.innerHeight) return;
+      if (parseFloat(getComputedStyle(el).opacity) >= 0.99) return;
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+  }, 3000);
 
   gsap.timeline({ scrollTrigger: Object.assign({ trigger: '.steps', start: 'top 76%' }, once), defaults: { ease: EASE } })
     .to('#axis', { scaleX: 1, duration: 1.2 })
