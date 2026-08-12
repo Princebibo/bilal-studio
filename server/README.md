@@ -1,4 +1,4 @@
-# Bilal Studio — Backend
+# Bibo Saya Studio — Backend
 
 Lead capture API + PayPal payment notifications for the NFC Review Card &
 Web Design landing page.

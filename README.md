@@ -1,4 +1,4 @@
-# Bilal Studio
+# Bibo Saya Studio
 
 Landing page for an independent studio selling **NFC Google Review Cards** and
 **custom website design** to local businesses.

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bilal Studio — Cartes NFC d'avis Google & sites sur mesure</title>
+<title>Bibo Saya Studio — Cartes NFC d'avis Google & sites sur mesure</title>
 <meta name="description" id="metaDesc" content="Développez votre entreprise plus vite avec une carte NFC d'avis Google et un site performant. Un geste, plus d'avis, plus de clients. Cartes 15–45 $, sites dès 350 $.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -283,6 +283,10 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 .work__tag{display:block;margin-bottom:1rem}
 .work h3{margin-bottom:.625rem;font-size:clamp(1.5rem,2.6vw,2rem);letter-spacing:-.025em}
 .work p{color:var(--ink-soft);font-size:.9375rem;line-height:1.6;max-width:38ch}
+/* Padding, not margin, so the tap target reaches 44px. The underline is
+   pulled back up to sit under the text rather than at the padded edge. */
+.work__link{margin-top:.375rem;font-size:.9375rem;padding-block:.625rem}
+.work__link::after{bottom:.5rem}
 .work__foot{grid-column:1/span 12;margin-top:clamp(2.5rem,5vw,3.5rem);
   padding-top:1.5rem;border-top:1px solid var(--rule);
   font-size:.9375rem;color:var(--ink-soft)}
@@ -420,7 +424,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
 <!-- ①  NAV -->
 <header class="nav" id="nav">
   <div class="wrap nav__inner">
-    <a href="#" class="mark" aria-label="Bilal Studio">Bilal&nbsp;Studio</a>
+    <a href="#" class="mark" aria-label="Bibo Saya Studio">Bibo&nbsp;Saya&nbsp;Studio</a>
 
     <div class="nav__right">
       <nav class="nav__links" aria-label="Navigation">
@@ -761,15 +765,25 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
         <span class="label work__tag" data-i18n="wk.1.t">Association</span>
         <h3 data-i18n="wk.1.n">ACMC</h3>
         <p data-i18n="wk.1.d">Site vitrine — présentation, activités et contact.</p>
+        <!-- rel="noopener" on every target=_blank: without it the opened page
+             can reach back through window.opener and redirect this one. -->
+        <a class="tlink work__link" href="https://associationcanadienmlodiedescultures.lovable.app"
+           target="_blank" rel="noopener noreferrer">
+          <span data-i18n="wk.visit">Voir le site</span> &nearr;
+        </a>
       </li>
       <li data-stagger>
         <span class="label work__tag" data-i18n="wk.2.t">Festival</span>
         <h3 data-i18n="wk.2.n">EFCF</h3>
         <p data-i18n="wk.2.d">Festival du Film et du Cinéma Égyptien au Canada — programme, séances et informations pratiques.</p>
+        <a class="tlink work__link" href="https://princebibo.github.io/efcf-canada/"
+           target="_blank" rel="noopener noreferrer">
+          <span data-i18n="wk.visit">Voir le site</span> &nearr;
+        </a>
       </li>
     </ul>
 
-    <p class="work__foot" data-fade data-i18n="wk.foot">Vous voulez voir le résultat en ligne&nbsp;? Demandez-nous les liens, nous vous les envoyons.</p>
+    <p class="work__foot" data-fade data-i18n="wk.foot">Chaque site est en ligne et fonctionne aujourd'hui — cliquez pour le voir vous-même.</p>
   </div>
 </section>
 
@@ -968,7 +982,7 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
   <div class="wrap">
     <div class="foot__grid">
       <div>
-        <span class="mark">Bilal&nbsp;Studio</span>
+        <span class="mark">Bibo&nbsp;Saya&nbsp;Studio</span>
         <p data-i18n="ft.tag">Cartes NFC d'avis Google et sites performants pour les commerces de proximité.</p>
       </div>
       <div>
@@ -983,14 +997,14 @@ h3{font-size:var(--fs-h3);line-height:1.24;letter-spacing:-.018em}
       <div>
         <h4 data-i18n="ft.contact">Contact</h4>
         <ul>
-          <li><a href="mailto:bilalcraft2010@gmail.com">bilalcraft2010@gmail.com</a></li>
+          <li><a href="mailto:bibosayastudio@gmail.com">bibosayastudio@gmail.com</a></li>
         </ul>
         <p style="margin-top:1rem" data-i18n="ft.indep">Studio indépendant. Vous traitez directement avec la personne qui fabrique votre carte et crée votre site.</p>
       </div>
     </div>
     <div class="foot__base">
       <p data-i18n="ft.base">Prix clairs, confirmés avant de commencer.</p>
-      <p>&copy; 2026 Bilal Studio</p>
+      <p>&copy; 2026 Bibo Saya Studio</p>
     </div>
   </div>
 </footer>
@@ -1012,7 +1026,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ── OPTION A: Formspree ────────────────────────────────────────
        1. Sign up free at https://formspree.io
-       2. New Form → set the destination to bilalcraft2010@gmail.com
+       2. New Form → set the destination to bibosayastudio@gmail.com
        3. Confirm the verification email Formspree sends you
        4. Copy the form ID from the endpoint it gives you
           (https://formspree.io/f/XXXXXXXX  →  the XXXXXXXX part)
@@ -1027,7 +1041,7 @@ document.addEventListener('DOMContentLoaded', function () {
     apiBase: 'https://api.yourdomain.com',
 
     /* Used for the fallback mailto: link if the network fails. */
-    fallbackEmail: 'bilalcraft2010@gmail.com',
+    fallbackEmail: 'bibosayastudio@gmail.com',
   };
 
   /* ══════════════════════════════════════════════════════════════════
@@ -1035,7 +1049,7 @@ document.addEventListener('DOMContentLoaded', function () {
      ══════════════════════════════════════════════════════════════════ */
   const I18N = {
     en: {
-      docTitle: "Bilal Studio — NFC Google Review Cards & Custom Websites",
+      docTitle: "Bibo Saya Studio — NFC Google Review Cards & Custom Websites",
       docDesc: "Grow your business faster with a custom NFC Google Review Card and a high-performance website. One tap, more reviews, more customers. Cards $15–$45, websites from $350.",
       skip: 'Skip to content',
 
@@ -1121,7 +1135,8 @@ document.addEventListener('DOMContentLoaded', function () {
       'wk.1.d': 'Brochure site — who they are, what they run, how to reach them.',
       'wk.2.t': 'Festival', 'wk.2.n': 'EFCF',
       'wk.2.d': 'Festival du Film et du Cinéma Égyptien au Canada — programme, screenings and visitor information.',
-      'wk.foot': 'Want to see them live? Ask and we will send the links.',
+      'wk.visit': 'Visit the site',
+      'wk.foot': 'Both sites are live and working today — click through and see for yourself.',
 
       'pr.eyebrow': '06 — How it works',
       'pr.head': 'Talk first. Pay when you are ready.',

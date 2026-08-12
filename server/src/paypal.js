@@ -165,7 +165,7 @@ async function createOrder({ quote, customer = {}, referenceId }) {
     payment_source: {
       paypal: {
         experience_context: {
-          brand_name: 'Bilal Studio',
+          brand_name: 'Bibo Saya Studio',
           user_action: 'PAY_NOW',
           // Physical product — we need an address to ship to.
           shipping_preference: 'GET_FROM_FILE',

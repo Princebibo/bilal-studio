@@ -162,16 +162,16 @@ function leadConfirmation(lead, { replyWindow = '24 hours' } = {}) {
       ['Phone', lead.phone],
     ])}
     <p style="margin:24px 0 0 0;">If anything has changed, or you want to add detail, just reply to this email — it comes straight to me.</p>
-    <p style="margin:20px 0 0 0;">Talk soon,<br><strong style="color:${C.ink};">Bilal Studio</strong></p>`;
+    <p style="margin:20px 0 0 0;">Talk soon,<br><strong style="color:${C.ink};">Bibo Saya Studio</strong></p>`;
 
   return {
-    subject: 'We received your enquiry — Bilal Studio',
+    subject: 'We received your enquiry — Bibo Saya Studio',
     html: shell({
       preheader: `Thanks ${firstName} — we'll reply within ${replyWindow}.`,
       eyebrow: 'Enquiry received',
       heading: 'Thanks — we have your details',
       bodyHtml,
-      footerHtml: `Bilal Studio &middot; NFC Google Review Cards &amp; Web Design<br>You are receiving this because you submitted a form on our website.`,
+      footerHtml: `Bibo Saya Studio &middot; NFC Google Review Cards &amp; Web Design<br>You are receiving this because you submitted a form on our website.`,
     }),
   };
 }

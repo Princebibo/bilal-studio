@@ -58,7 +58,7 @@ const config = {
   mail: {
     driver: MAIL_DRIVER,
     notifyEmail: req('NOTIFY_EMAIL'),
-    fromName: opt('MAIL_FROM_NAME', 'Bilal Studio'),
+    fromName: opt('MAIL_FROM_NAME', 'Bibo Saya Studio'),
     fromEmail: req('MAIL_FROM_EMAIL'),
     smtp: {
       host: MAIL_DRIVER === 'smtp' ? req('SMTP_HOST') : opt('SMTP_HOST'),
