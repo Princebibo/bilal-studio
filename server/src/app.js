@@ -10,23 +10,7 @@ const orderStore = require('./orderStore');
 
 const leadRoutes = require('./routes/lead');
 const webhookRoutes = require('./routes/webhook');
-
-/**
- * NOTE — the instant-checkout routes are intentionally NOT mounted.
- *
- * The site is lead-generation only: visitors get in touch, the price is
- * agreed over email, and payment happens via a PayPal invoice sent from
- * the PayPal dashboard. There is no card checkout on the public page.
- *
- * src/routes/checkout.js and src/pricing.js are kept on disk (working and
- * tested) in case a "pay now" option is wanted later. To re-enable, add:
- *
- *   const checkoutRoutes = require('./routes/checkout');
- *   app.use('/api', checkoutRoutes);        // after express.json()
- *
- * Leaving them unmounted means they are unreachable — no attack surface,
- * no dead endpoint to secure.
- */
+const checkoutRoutes = require('./routes/checkout');
 
 /**
  * Builds the Express app WITHOUT binding a port.
@@ -138,6 +122,7 @@ function createApp() {
   });
 
   app.use('/api', leadRoutes);
+  app.use('/api', checkoutRoutes);
 
   // ── 404 ─────────────────────────────────────────────────────────────
   app.use((req, res) => {

@@ -135,7 +135,12 @@ async function authed(path, { method = 'GET', body, headers = {} } = {}) {
  * @param {string}  args.referenceId Our own order reference, echoed back on the webhook.
  */
 async function createOrder({ quote, customer = {}, referenceId }) {
-  const { currency, quantity, unit, itemTotal, shipping, total } = quote;
+  const { currency, lines, itemTotal, shipping, total } = quote;
+
+  const unitCount = lines.reduce((n, l) => n + l.quantity, 0);
+  const description = lines.length === 1
+    ? `${lines[0].name} × ${lines[0].quantity}`
+    : `NFC hardware — ${unitCount} units`;
 
   const payload = {
     intent: 'CAPTURE',
@@ -144,23 +149,27 @@ async function createOrder({ quote, customer = {}, referenceId }) {
       // custom_id survives the whole lifecycle and comes back on the
       // webhook — this is how we correlate a capture to our own record.
       custom_id: referenceId,
-      description: `NFC Google Review Card × ${quantity}`,
-      soft_descriptor: 'REVIEWCARD',
+      description: description.slice(0, 127),   // PayPal caps this field
+      soft_descriptor: 'NFCCARDS',
       amount: {
         currency_code: currency,
         value: total,
+        /* The breakdown must sum EXACTLY to `value` or PayPal rejects the
+           order outright. Both sides come from the same integer-cent
+           arithmetic in pricing.js, so they cannot drift. */
         breakdown: {
           item_total: { currency_code: currency, value: itemTotal },
           shipping: { currency_code: currency, value: shipping },
         },
       },
-      items: [{
-        name: 'NFC Google Review Card',
-        description: 'Custom-printed NFC card linked to your Google review page',
-        quantity: String(quantity),
-        unit_amount: { currency_code: currency, value: unit },
+      items: lines.map((l) => ({
+        name: l.name.slice(0, 127),
+        description: (l.description || '').slice(0, 127),
+        sku: l.sku.slice(0, 127),
+        quantity: String(l.quantity),
+        unit_amount: { currency_code: currency, value: l.unit },
         category: 'PHYSICAL_GOODS',
-      }],
+      })),
     }],
     payment_source: {
       paypal: {
@@ -189,7 +198,8 @@ async function createOrder({ quote, customer = {}, referenceId }) {
   logger.info('PayPal order created', {
     orderId: order.id,
     referenceId,
-    quantity,
+    lines: lines.map((l) => l.sku + '×' + l.quantity).join(', '),
+    units: unitCount,
     total,
     currency,
   });
