@@ -10,7 +10,21 @@ const orderStore = require('./orderStore');
 
 const leadRoutes = require('./routes/lead');
 const webhookRoutes = require('./routes/webhook');
-const checkoutRoutes = require('./routes/checkout');
+
+/**
+ * NOTE — the checkout routes are intentionally NOT mounted.
+ *
+ * Both storefronts take orders by email and invoice afterwards, so nothing
+ * calls /api/create-paypal-order. src/routes/checkout.js and src/pricing.js
+ * stay on disk, working and tested, for the day an on-site "pay now" is
+ * wanted. To re-enable:
+ *
+ *   const checkoutRoutes = require('./routes/checkout');
+ *   app.use('/api', checkoutRoutes);        // after express.json()
+ *
+ * Unmounted means unreachable: no payment surface to secure while it is
+ * not being used.
+ */
 
 /**
  * Builds the Express app WITHOUT binding a port.
@@ -122,7 +136,6 @@ function createApp() {
   });
 
   app.use('/api', leadRoutes);
-  app.use('/api', checkoutRoutes);
 
   // ── 404 ─────────────────────────────────────────────────────────────
   app.use((req, res) => {
